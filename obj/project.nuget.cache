@@ -1,12 +1,26 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "TOf3sscIdiuZZ74RgZ3EcZir+Ca/y3Xbn78/PCgObnii708mXMpIda6xxrj9CxhbFpmTrGEK+538M0z0WON7nw==",
+=======
+<<<<<<< HEAD
+  "dgSpecHash": "B/CQ5X6rfFe7S4ZtkcJiQ/eBDZ5VRCjaV7NfqP5cqFZsIaN/TLx3u+GeEJ09tpshC5BzfaTSet4u6JLaBazkqQ==",
+  "success": true,
+  "projectFilePath": "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\XuHan\\.nuget\\packages\\fsharp.core\\6.0.7\\fsharp.core.6.0.7.nupkg.sha512",
+    "C:\\Users\\XuHan\\.nuget\\packages\\fslexyacc\\10.2.0\\fslexyacc.10.2.0.nupkg.sha512",
+    "C:\\Users\\XuHan\\.nuget\\packages\\fslexyacc.runtime\\10.2.0\\fslexyacc.runtime.10.2.0.nupkg.sha512"
+=======
+  "dgSpecHash": "w4uPE7yI1Aop4ifl1lVd13wGnJdgwyUPAzSLdqn+vwRRyPDraBhjNc6bDYyoT3faXJrnpFjiwaPulT9DfrjVHw==",
+>>>>>>> 5cf6945d31cbf623584bbd3eff9c951d68e7a31c
   "success": true,
   "projectFilePath": "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\interpc.fsproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\fsharp.core\\6.0.7\\fsharp.core.6.0.7.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\fslexyacc\\10.2.0\\fslexyacc.10.2.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\fslexyacc.runtime\\10.2.0\\fslexyacc.runtime.10.2.0.nupkg.sha512"
+>>>>>>> cd22e2c74ab31962e70d3333283fbb449298eebf
   ],
   "logs": []
 }
