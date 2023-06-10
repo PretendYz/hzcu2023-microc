@@ -174,11 +174,11 @@ let bindVar x v (env, nextloc) store : locEnv * store =
 
     //返回新环境，新的待分配位置+1，设置当前存储位置为值 v
     let ret = ((env1, nextloc + 1), setSto store nextloc v)
-    
+
     msg $"locEnv:\n {fst ret}\n"
     msg $"Store:\n {store2str (snd ret)}\n"
 
-    ret 
+    ret
 
 
 let rec bindVars xs vs locEnv store : locEnv * store =
@@ -206,7 +206,7 @@ let rec allocate (typ, x) (env0, nextloc) sto0 : locEnv * store =
     let (nextloc1, v, sto1) =
         match typ with
         //数组 调用 initSto 分配 i 个空间
-        | TypA (t, Some i) -> (nextloc + i, nextloc, initSto nextloc i sto0)
+        | TypA(t, Some i) -> (nextloc + i, nextloc, initSto nextloc i sto0)
         // 常规变量默认值是 0
         | _ -> (nextloc, 0, sto0)
 
@@ -229,12 +229,12 @@ let initEnvAndStore (topdecs: topdec list) : locEnv * funEnv * store =
         | [] -> (locEnv, funEnv, store)
 
         // 全局变量声明  调用allocate 在store上给变量分配空间
-        | Vardec (typ, x) :: decr ->
+        | Vardec(typ, x) :: decr ->
             let (locEnv1, sto1) = allocate (typ, x) locEnv store
             addv decr locEnv1 funEnv sto1
 
         //全局函数 将声明(f,(xs,body))添加到全局函数环境 funEnv
-        | Fundec (_, f, xs, body) :: decr -> addv decr locEnv ((f, (xs, body)) :: funEnv) store
+        | Fundec(_, f, xs, body) :: decr -> addv decr locEnv ((f, (xs, body)) :: funEnv) store
 
     // ([], 0) []  默认全局环境
     // locEnv ([],0) 变量环境 ，变量定义为空列表[],下一个空闲地址为0
@@ -248,7 +248,7 @@ let initEnvAndStore (topdecs: topdec list) : locEnv * funEnv * store =
 
 let rec exec stmt (locEnv: locEnv) (gloEnv: gloEnv) (store: store) : store =
     match stmt with
-    | If (e, stmt1, stmt2) ->
+    | If(e, stmt1, stmt2) ->
         let (v, store1) = eval e locEnv gloEnv store
 
         if v <> 0 then
@@ -256,7 +256,7 @@ let rec exec stmt (locEnv: locEnv) (gloEnv: gloEnv) (store: store) : store =
         else
             exec stmt2 locEnv gloEnv store1 //False分支
 
-    | While (e, body) ->
+    | While(e, body) ->
 
         //定义 While循环辅助函数 loop
         let rec loop store1 =
@@ -286,13 +286,12 @@ let rec exec stmt (locEnv: locEnv) (gloEnv: gloEnv) (store: store) : store =
             | s1 :: sr -> loop sr (stmtordec s1 locEnv gloEnv store)
 
         loop stmts (locEnv, store)
-
     | Return _ -> failwith "return not implemented" // 解释器没有实现 return
 
 and stmtordec stmtordec locEnv gloEnv store =
     match stmtordec with
     | Stmt stmt -> (locEnv, exec stmt locEnv gloEnv store)
-    | Dec (typ, x) -> allocate (typ, x) locEnv store
+    | Dec(typ, x) -> allocate (typ, x) locEnv store
 
 (* Evaluating micro-C expressions *)
 
@@ -301,13 +300,13 @@ and eval e locEnv gloEnv store : int * store =
     | Access acc ->
         let (loc, store1) = access acc locEnv gloEnv store
         (getSto store1 loc, store1)
-    | Assign (acc, e) ->
+    | Assign(acc, e) ->
         let (loc, store1) = access acc locEnv gloEnv store
         let (res, store2) = eval e locEnv gloEnv store1
         (res, setSto store2 loc res)
     | CstI i -> (i, store)
     | Addr acc -> access acc locEnv gloEnv store
-    | Prim1 (ope, e1) ->
+    | Prim1(ope, e1) ->
         let (i1, store1) = eval e1 locEnv gloEnv store
 
         let res =
@@ -322,7 +321,7 @@ and eval e locEnv gloEnv store : int * store =
             | _ -> failwith ("unknown primitive " + ope)
 
         (res, store1)
-    | Prim2 (ope, e1, e2) ->
+    | Prim2(ope, e1, e2) ->
         let (i1, store1) = eval e1 locEnv gloEnv store
         let (i2, store2) = eval e2 locEnv gloEnv store1
 
@@ -342,27 +341,27 @@ and eval e locEnv gloEnv store : int * store =
             | _ -> failwith ("unknown primitive " + ope)
 
         (res, store2)
-    | Andalso (e1, e2) ->
+    | Prim3 (e1, e2, e3) -> 
+        let (i1, store1) = eval e1 locEnv gloEnv store
+        let (i2, store2) = eval e2 locEnv gloEnv store1
+        let (i3, store3) = eval e3 locEnv gloEnv store2
+        let res = if i1<>0 then i2 else i3
+        (res, store3)
+    | Andalso(e1, e2) ->
         let (i1, store1) as res = eval e1 locEnv gloEnv store
 
-        if i1 <> 0 then
-            eval e2 locEnv gloEnv store1
-        else
-            res
-    | Orelse (e1, e2) ->
+        if i1 <> 0 then eval e2 locEnv gloEnv store1 else res
+    | Orelse(e1, e2) ->
         let (i1, store1) as res = eval e1 locEnv gloEnv store
 
-        if i1 <> 0 then
-            res
-        else
-            eval e2 locEnv gloEnv store1
-    | Call (f, es) -> callfun f es locEnv gloEnv store
+        if i1 <> 0 then res else eval e2 locEnv gloEnv store1
+    | Call(f, es) -> callfun f es locEnv gloEnv store
 
 and access acc locEnv gloEnv store : int * store =
     match acc with
     | AccVar x -> (lookup (fst locEnv) x, store)
     | AccDeref e -> eval e locEnv gloEnv store
-    | AccIndex (acc, idx) ->
+    | AccIndex(acc, idx) ->
         let (a, store1) = access acc locEnv gloEnv store
         let aval = getSto store1 a
         let (i, store2) = eval idx locEnv gloEnv store1
@@ -378,8 +377,7 @@ and evals es locEnv gloEnv store : int list * store =
 
 and callfun f es locEnv gloEnv store : int * store =
 
-    msg
-    <| sprintf "callfun: %A\n" (f, locEnv, gloEnv, store)
+    msg <| sprintf "callfun: %A\n" (f, locEnv, gloEnv, store)
 
     let (_, nextloc) = locEnv
     let (varEnv, funEnv) = gloEnv
@@ -438,8 +436,7 @@ let run (Prog topdecs) vs =
     // map [(0, 8)]
     sprintf "\nstore1:\n %A\n" store1
 
-    let endstore =
-        exec mainBody mainBodyEnv (varEnv, funEnv) store1
+    let endstore = exec mainBody mainBodyEnv (varEnv, funEnv) store1
 
     msg $"\nvarEnv:\n{varEnv}\n"
     msg $"\nStore:\n"

@@ -22,10 +22,12 @@ let nl = CstI 10 //  \n 的 ASCII 码
 %token EQ NE GT LT GE LE
 %token NOT SEQOR SEQAND
 %token LPAR RPAR LBRACE RBRACE LBRACK RBRACK SEMI COMMA ASSIGN AMP
+%token QUE COLON // ?:
 %token EOF
 
 %right ASSIGN             /* lowest precedence */  // 最下面的优先级最高
 %nonassoc PRINT
+%right QUE COLON          /* 三目运算符 */
 %left SEQOR
 %left SEQAND
 %left EQ NE 
@@ -170,6 +172,7 @@ ExprNotAccess:
   | Expr LT    Expr                     { Prim2("<",  $1, $3) }
   | Expr GE    Expr                     { Prim2(">=", $1, $3) }
   | Expr LE    Expr                     { Prim2("<=", $1, $3) }
+  | Expr QUE Expr COLON Expr            { Prim3($1, $3, $5)   } // 三目运算
   | Expr SEQAND Expr                    { Andalso($1, $3)     }
   | Expr SEQOR  Expr                    { Orelse($1, $3)      }
 ;
