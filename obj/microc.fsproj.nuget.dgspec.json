@@ -1,48 +1,27 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj": {}
+    "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\microc.fsproj": {}
   },
   "projects": {
-    "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj": {
+    "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\microc.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj",
-        "projectName": "interpc",
-        "projectPath": "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj",
-        "packagesPath": "C:\\Users\\XuHan\\.nuget\\packages\\",
-        "outputPath": "D:\\ZUCC\\编译原理\\microc\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\XuHan\\AppData\\Roaming\\NuGet\\NuGet.Config"
-=======
-    "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\interpc.fsproj": {}
-  },
-  "projects": {
-    "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\interpc.fsproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\interpc.fsproj",
-        "projectName": "interpc",
-        "projectPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\interpc.fsproj",
+        "projectUniqueName": "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\microc.fsproj",
+        "projectName": "microc",
+        "projectPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\microc.fsproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
         "outputPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> cd22e2c74ab31962e70d3333283fbb449298eebf
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-<<<<<<< HEAD
-          "D:\\dotnet\\sdk\\6.0.406\\FSharp\\library-packs": {},
-=======
           "C:\\Program Files\\dotnet\\sdk\\6.0.406\\FSharp\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {},
->>>>>>> cd22e2c74ab31962e70d3333283fbb449298eebf
           "https://nuget.cdn.azure.cn/v3/index.json": {}
         },
         "frameworks": {
@@ -84,11 +63,7 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
-          "runtimeIdentifierGraphPath": "D:\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
-=======
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
->>>>>>> cd22e2c74ab31962e70d3333283fbb449298eebf
         }
       }
     }
