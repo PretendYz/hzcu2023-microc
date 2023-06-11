@@ -28,6 +28,7 @@ D:\ZUCC\编译原理\microc\obj\Debug\net6.0\interpc.dll
 D:\ZUCC\编译原理\microc\obj\Debug\net6.0\interpc.pdb
 D:\ZUCC\编译原理\microc\obj\Debug\net6.0\interpc.genruntimeconfig.cache
 =======
+>>>>>>> cd22e2c74ab31962e70d3333283fbb449298eebf
 E:\大三下\编程语言原理与编译\lastwork\microc\bin\Debug\net6.0\interpc.exe
 E:\大三下\编程语言原理与编译\lastwork\microc\bin\Debug\net6.0\interpc.deps.json
 E:\大三下\编程语言原理与编译\lastwork\microc\bin\Debug\net6.0\interpc.runtimeconfig.json
@@ -56,4 +57,3 @@ E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interp
 E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.dll
 E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.pdb
 E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.genruntimeconfig.cache
->>>>>>> cd22e2c74ab31962e70d3333283fbb449298eebf
