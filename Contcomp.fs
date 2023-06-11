@@ -218,6 +218,8 @@ let rec cStmt stmt (varEnv : VarEnv) (funEnv : FunEnv) (C : instr list) : instr 
       RET (snd varEnv - 1) :: deadcode C
     | Return (Some e) -> 
       cExpr e varEnv funEnv (RET (snd varEnv) :: deadcode C)
+    | For(_, _, _, _) -> failwith "Not Implemented"
+    | DoWhile(_, _) -> failwith "Not Implemented"
 
 and bStmtordec stmtOrDec varEnv : bstmtordec * VarEnv =
     match stmtOrDec with 
@@ -302,6 +304,15 @@ and cExpr (e : expr) (varEnv : VarEnv) (funEnv : FunEnv) (C : instr list) : inst
            (IFNZRO labtrue 
              :: cExpr e2 varEnv funEnv (addJump jumpend C2))
     | Call(f, es) -> callfun f es varEnv funEnv C
+    | CstC(_) -> failwith "Not Implemented"
+    | CstB(_) -> failwith "Not Implemented"
+    | CstS(_) -> failwith "Not Implemented"
+    | CstF(_) -> failwith "Not Implemented"
+    | Prim3(_, _, _) -> failwith "Not Implemented"
+    | Print(_, _) -> failwith "Not Implemented"
+    | Println(_) -> failwith "Not Implemented"
+    | Sizeof(_) -> failwith "Not Implemented"
+    | Typeof(_) -> failwith "Not Implemented"
 
 (* Generate code to access variable, dereference pointer or index array: *)
 
