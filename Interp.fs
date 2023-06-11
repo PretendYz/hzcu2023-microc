@@ -257,7 +257,6 @@ let rec exec stmt (locEnv: locEnv) (gloEnv: gloEnv) (store: store) : store =
             exec stmt2 locEnv gloEnv store1 //False分支
 
     | While(e, body) ->
-
         //定义 While循环辅助函数 loop
         let rec loop store1 =
             //求值 循环条件,注意变更环境 store
@@ -269,7 +268,27 @@ let rec exec stmt (locEnv: locEnv) (gloEnv: gloEnv) (store: store) : store =
                 store2 //退出循环返回 环境store2
 
         loop store
+    | For (e1, e2, e3, body) ->
+        //定义 For循环辅助函数 loop
+        let rec loop store1 =
+            //求值 循环条件,注意变更环境 store
+            let (v, store2) = eval e2 locEnv gloEnv store1
+            // 继续循环
+            if v <> 0 then
+                let (_, store3) = eval e3 locEnv gloEnv (exec body locEnv gloEnv store2)
+                loop store3
+            else
+                store2 //退出循环返回 环境store2
+        
+        let (_, store1) = eval e1 locEnv gloEnv store
+        loop store1
 
+    | DoWhile (e, body) ->
+        // 先执行一遍body
+        let store1=exec body locEnv gloEnv store 
+        // 然后根据判定值执行While循环辅助函数 loop
+        exec (While(e, body)) locEnv gloEnv store1
+    
     | Expr e ->
         // _ 表示丢弃e的值,返回 变更后的环境store1
         let (_, store1) = eval e locEnv gloEnv store
