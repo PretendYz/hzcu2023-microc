@@ -24,6 +24,7 @@ let nl = CstI 10 //  \n 的 ASCII 码
 %token LPAR RPAR LBRACE RBRACE LBRACK RBRACK SEMI COMMA ASSIGN AMP
 %token QUE COLON // ?:
 %token INC DESC  // ++ --
+%token PLUS_ASSIGN MINUS_ASSIGN TIMES_ASSIGN DIV_ASSIGN MOD_ASSIGN  // += -= *= /= %=
 %token EOF
 
 %right ASSIGN             /* lowest precedence */  // 最下面的优先级最高
@@ -172,6 +173,11 @@ ExprNotAccess:
   | Expr TIMES Expr                     { Prim2("*",  $1, $3) }
   | Expr DIV   Expr                     { Prim2("/",  $1, $3) }
   | Expr MOD   Expr                     { Prim2("%",  $1, $3) }
+  | Access PLUS_ASSIGN Expr             { Assign($1, Prim2("+", Access $1, $3) ) } // +=
+  | Access MINUS_ASSIGN Expr            { Assign($1, Prim2("-", Access $1, $3) ) } // -=
+  | Access TIMES_ASSIGN Expr            { Assign($1, Prim2("*", Access $1, $3) ) } // *=
+  | Access DIV_ASSIGN Expr              { Assign($1, Prim2("/", Access $1, $3) ) } // /=
+  | Access MOD_ASSIGN Expr              { Assign($1, Prim2("%", Access $1, $3) ) } // %=
   | Expr EQ    Expr                     { Prim2("==", $1, $3) }
   | Expr NE    Expr                     { Prim2("!=", $1, $3) }
   | Expr GT    Expr                     { Prim2(">",  $1, $3) }

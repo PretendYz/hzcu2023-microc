@@ -2,6 +2,11 @@
 module CPar
 type token = 
   | EOF
+  | PLUS_ASSIGN
+  | MINUS_ASSIGN
+  | TIMES_ASSIGN
+  | DIV_ASSIGN
+  | MOD_ASSIGN
   | INC
   | DESC
   | QUE
@@ -48,6 +53,11 @@ type token =
   | CSTBOOL of (int)
 type tokenId = 
     | TOKEN_EOF
+    | TOKEN_PLUS_ASSIGN
+    | TOKEN_MINUS_ASSIGN
+    | TOKEN_TIMES_ASSIGN
+    | TOKEN_DIV_ASSIGN
+    | TOKEN_MOD_ASSIGN
     | TOKEN_INC
     | TOKEN_DESC
     | TOKEN_QUE
