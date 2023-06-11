@@ -29,6 +29,10 @@ D:\ZUCC\编译原理\microc\obj\Debug\net6.0\interpc.pdb
 D:\ZUCC\编译原理\microc\obj\Debug\net6.0\interpc.genruntimeconfig.cache
 =======
 >>>>>>> cd22e2c74ab31962e70d3333283fbb449298eebf
+E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.fsproj.AssemblyReference.cache
+E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.AssemblyInfoInputs.cache
+E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.AssemblyInfo.fs
+E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.fsproj.CoreCompileInputs.cache
 E:\大三下\编程语言原理与编译\lastwork\microc\bin\Debug\net6.0\interpc.exe
 E:\大三下\编程语言原理与编译\lastwork\microc\bin\Debug\net6.0\interpc.deps.json
 E:\大三下\编程语言原理与编译\lastwork\microc\bin\Debug\net6.0\interpc.runtimeconfig.json
@@ -49,10 +53,6 @@ E:\大三下\编程语言原理与编译\lastwork\microc\bin\Debug\net6.0\ru\FSh
 E:\大三下\编程语言原理与编译\lastwork\microc\bin\Debug\net6.0\tr\FSharp.Core.resources.dll
 E:\大三下\编程语言原理与编译\lastwork\microc\bin\Debug\net6.0\zh-Hans\FSharp.Core.resources.dll
 E:\大三下\编程语言原理与编译\lastwork\microc\bin\Debug\net6.0\zh-Hant\FSharp.Core.resources.dll
-E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.fsproj.AssemblyReference.cache
-E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.AssemblyInfoInputs.cache
-E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.AssemblyInfo.fs
-E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.fsproj.CoreCompileInputs.cache
 E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.fsproj.CopyComplete
 E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.dll
 E:\大三下\编程语言原理与编译\lastwork\microc\obj\Debug\net6.0\interpc.pdb

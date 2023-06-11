@@ -204,6 +204,8 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
 
     | Return None -> [ RET(snd varEnv - 1) ]
     | Return (Some e) -> cExpr e varEnv funEnv @ [ RET(snd varEnv) ]
+    | For(_, _, _, _) -> failwith "Not Implemented"
+    | DoWhile(_, _) -> failwith "Not Implemented"
 
 and cStmtOrDec stmtOrDec (varEnv: VarEnv) (funEnv: FunEnv) : VarEnv * instr list =
     match stmtOrDec with
@@ -276,6 +278,15 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
                 CSTI 1
                 Label labend ]
     | Call (f, es) -> callfun f es varEnv funEnv
+    | CstC(_) -> failwith "Not Implemented"
+    | CstB(_) -> failwith "Not Implemented"
+    | CstS(_) -> failwith "Not Implemented"
+    | CstF(_) -> failwith "Not Implemented"
+    | Prim3(_, _, _) -> failwith "Not Implemented"
+    | Print(_, _) -> failwith "Not Implemented"
+    | Println(_) -> failwith "Not Implemented"
+    | Sizeof(_) -> failwith "Not Implemented"
+    | Typeof(_) -> failwith "Not Implemented"
 
 (* Generate code to access variable, dereference pointer or index array.
    The effect of the compiled code is to leave an lvalue on the stack.   *)

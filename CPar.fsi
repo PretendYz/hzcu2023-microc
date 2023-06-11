@@ -7,6 +7,8 @@ type token =
   | TIMES_ASSIGN
   | DIV_ASSIGN
   | MOD_ASSIGN
+  | SIZEOF
+  | TYPEOF
   | INC
   | DESC
   | QUE
@@ -39,6 +41,9 @@ type token =
   | ELSE
   | IF
   | INT
+  | FLOAT
+  | BOOL
+  | STRING
   | NULL
   | PRINT
   | PRINTLN
@@ -49,8 +54,9 @@ type token =
   | DO
   | CSTSTRING of (string)
   | NAME of (string)
+  | CSTBOOL of (bool)
+  | CSTFLOAT of (float32)
   | CSTINT of (int)
-  | CSTBOOL of (int)
 type tokenId = 
     | TOKEN_EOF
     | TOKEN_PLUS_ASSIGN
@@ -58,6 +64,8 @@ type tokenId =
     | TOKEN_TIMES_ASSIGN
     | TOKEN_DIV_ASSIGN
     | TOKEN_MOD_ASSIGN
+    | TOKEN_SIZEOF
+    | TOKEN_TYPEOF
     | TOKEN_INC
     | TOKEN_DESC
     | TOKEN_QUE
@@ -90,6 +98,9 @@ type tokenId =
     | TOKEN_ELSE
     | TOKEN_IF
     | TOKEN_INT
+    | TOKEN_FLOAT
+    | TOKEN_BOOL
+    | TOKEN_STRING
     | TOKEN_NULL
     | TOKEN_PRINT
     | TOKEN_PRINTLN
@@ -100,8 +111,9 @@ type tokenId =
     | TOKEN_DO
     | TOKEN_CSTSTRING
     | TOKEN_NAME
-    | TOKEN_CSTINT
     | TOKEN_CSTBOOL
+    | TOKEN_CSTFLOAT
+    | TOKEN_CSTINT
     | TOKEN_end_of_input
     | TOKEN_error
 type nonTerminalId = 
@@ -125,7 +137,10 @@ type nonTerminalId =
     | NONTERM_Access
     | NONTERM_Exprs
     | NONTERM_Exprs1
-    | NONTERM_Const
+    | NONTERM_ConstBool
+    | NONTERM_ConstInt
+    | NONTERM_ConstString
+    | NONTERM_ConstFloat
     | NONTERM_Type
 /// This function maps tokens to integer indexes
 val tagOfToken: token -> int

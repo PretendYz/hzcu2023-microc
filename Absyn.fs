@@ -13,6 +13,9 @@ module Absyn
 type typ =
   | TypI                             (* Type int                    *)
   | TypC                             (* Type char                   *)
+  | TypB                             (* Type bool                   *)
+  | TypS                             (* Type string                 *)
+  | TypF                             (* Type float                  *)
   | TypA of typ * int option         (* Array type                  *)
   | TypP of typ                      (* Pointer type                *)
                                                                    
@@ -20,13 +23,21 @@ and expr =                           // 表达式，右值
   | Access of access                 (* x    or  *p    or  a[e]     *) //访问左值（右值）
   | Assign of access * expr          (* x=e  or  *p=e  or  a[e]=e   *)
   | Addr of access                   (* &x   or  &*p   or  &a[e]    *)
-  | CstI of int                      (* Constant                    *)
+  | CstI of int                      (* Constant int                *)
+  | CstC of char                     (* Constant char               *)
+  | CstB of bool                     (* Constant bool               *)
+  | CstS of string                   (* Constant string             *)
+  | CstF of float32                  (* Constant float              *)
   | Prim1 of string * expr           (* Unary primitive operator    *)
   | Prim2 of string * expr * expr    (* Binary primitive operator   *)
   | Prim3 of expr * expr * expr      (* Ternary primitive operator  *)
   | Andalso of expr * expr           (* Sequential and              *)
   | Orelse of expr * expr            (* Sequential or               *)
   | Call of string * expr list       (* Function call f(...)        *)
+  | Print of string * expr
+  | Println of access
+  | Sizeof of expr
+  | Typeof of expr
                                                                    
 and access =                         //左值，存储的位置                                            
   | AccVar of string                 (* Variable access        x    *) 

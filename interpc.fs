@@ -14,11 +14,15 @@ let _ =
     if args.Length > 1 then
         let source = args.[1]
 
-        let inputargs =
-            Array.splitAt 2 args
-            |> snd
-            |> (Array.map int)
-            |> Array.toList
+        // let inputargs =
+        //     Array.splitAt 2 args
+        //     |> snd
+        //     |> (Array.map int)
+        //     |> Array.toList
+        let mutable inputargs = []
+        let arr2 = Array.splitAt 2 args |> snd |> (Array.map  int)
+        for i = 0 to arr2.Length-1 do
+          inputargs <- (INT (arr2.[i]))::inputargs
 
         printf "interpreting %s ...inputargs:%A\n" source inputargs
 
@@ -31,4 +35,4 @@ let _ =
         with Failure msg -> printf "ERROR: %s\n" msg
     else
         printf "Usage: interpc.exe <source file> <args>\n"
-        printf "example: interpc.exe ex1.c 8\n"
+        printf "example: interpc.exe ex1.c 8\n" 

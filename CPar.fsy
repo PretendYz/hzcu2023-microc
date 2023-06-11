@@ -14,16 +14,19 @@ let compose1 f (g, s) = ((fun x -> g(f(x))), s)
 let nl = CstI 10 //  \n 的 ASCII 码
 %}
 
-%token <int> CSTINT CSTBOOL  // <int> 是词元的语义值类型
+%token <int> CSTINT         // <int> 是词元的语义值类型
+%token <float32> CSTFLOAT
+%token <bool> CSTBOOL
 %token <string> CSTSTRING NAME
 
-%token CHAR ELSE IF INT NULL PRINT PRINTLN RETURN VOID WHILE FOR DO
+%token CHAR ELSE IF INT FLOAT BOOL STRING NULL PRINT PRINTLN RETURN VOID WHILE FOR DO
 %token PLUS MINUS TIMES DIV MOD
 %token EQ NE GT LT GE LE
 %token NOT SEQOR SEQAND
 %token LPAR RPAR LBRACE RBRACE LBRACK RBRACK SEMI COMMA ASSIGN AMP
 %token QUE COLON // ?:
 %token INC DESC  // ++ --
+%token SIZEOF TYPEOF    // 重构
 %token PLUS_ASSIGN MINUS_ASSIGN TIMES_ASSIGN DIV_ASSIGN MOD_ASSIGN  // += -= *= /= %=
 %token EOF
 
@@ -37,7 +40,7 @@ let nl = CstI 10 //  \n 的 ASCII 码
 %left PLUS MINUS
 %left TIMES DIV MOD
 %right INC DESC           /* 右结合 */
-%nonassoc NOT AMP 
+%nonassoc NOT AMP SIZEOF
 %nonassoc LBRACK          /* highest precedence  */
 
 %start Main            // 语法开始符号
@@ -163,11 +166,15 @@ Expr:
   //非左值的情况
 ExprNotAccess:
     AtExprNotAccess                     { $1                  }
+  | SIZEOF LPAR Expr RPAR               { Sizeof($3)          } // 计算类型大小
   | Access ASSIGN Expr                  { Assign($1, $3)      } // $1为左值
   | NAME LPAR Exprs RPAR                { Call($1, $3)        }  
   | NOT Expr                            { Prim1("!", $2)      }
-  | PRINT Expr                          { Prim1("printi", $2) }
-  | PRINTLN                             { Prim1("printc", nl) }
+  | PRINT LPAR CSTSTRING COMMA Expr RPAR{ Print($3, $5)       }
+  | PRINTLN LPAR  Access RPAR           { Println($3)         }
+  // | PRINT Expr                          { Prim1("printi", $2) }
+  // | PRINT Expr                          { Prim1("printf", $2) }
+  // | PRINTLN                             { Prim1("printc", nl) }
   | Expr PLUS  Expr                     { Prim2("+",  $1, $3) }
   | Expr MINUS Expr                     { Prim2("-",  $1, $3) }
   | Expr TIMES Expr                     { Prim2("*",  $1, $3) }
@@ -198,7 +205,10 @@ AtExprNotAccess:
     // Const ,  3
     // AMP Access  , &x
     // (3)   
-    Const                               { CstI $1             }
+    ConstInt                            { CstI $1             }
+  | ConstString                         { CstS($1)            }
+  | ConstFloat                          { CstF($1)            }
+  | ConstBool                           { CstB($1)            }
   | LPAR ExprNotAccess RPAR             { $2                  } 
   | AMP Access                          { Addr $2             } // 取地址
 ;
@@ -221,14 +231,29 @@ Exprs1:
   | Expr COMMA Exprs1                   { $1 :: $3 }
 ;
 
-Const:
-    CSTINT                              { $1       }
+ConstBool:
   | CSTBOOL                             { $1       }
+;
+
+ConstInt:
+    CSTINT                              { $1       }
   | MINUS CSTINT                        { - $2     }
   | NULL                                { -1       }
 ;
 
+ConstString:
+  CSTSTRING                             { $1       }
+;
+
+ConstFloat:
+    CSTFLOAT                            { $1       }
+  | MINUS CSTFLOAT                      { - $2     }
+; 
+
 Type:
     INT                                 { TypI     }
   | CHAR                                { TypC     }
+  | FLOAT                               { TypF     }
+  | BOOL                                { TypB     }
+  | STRING                              { TypS     }
 ;
