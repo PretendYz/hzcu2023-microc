@@ -26,7 +26,7 @@ let keyword s =
     | "bool"    -> BOOL
     | "string"  -> STRING
     | "null"    -> NULL
-    | "print"   -> PRINT
+    | "printf"  -> PRINT
     | "println" -> PRINTLN
     | "return"  -> RETURN
     | "true"    -> CSTBOOL true
@@ -34,6 +34,7 @@ let keyword s =
     | "while"   -> WHILE
     | "for"     -> FOR
     | "do"      -> DO
+    | "until"   -> UNTIL  
     | "sizeOf"  -> SIZEOF
     | "typeOf"  -> TYPEOF
     | _         -> NAME s   // 缺省情况，是标识符的名字，如 函数名，变量名等

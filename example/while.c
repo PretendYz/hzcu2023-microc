@@ -1,5 +1,6 @@
-void main(int n ) {
+void main(int n) {
     while(n){
-     print 1;
+     print("%d",1);
+     n--;
     }
 }

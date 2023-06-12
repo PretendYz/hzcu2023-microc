@@ -1,8 +1,8 @@
 
-void main (){
-int ia[2];
-// *(ia+1) = 9 ;
-ia[1] = 9;
-print ia[1];
+void main (int i){
+    int a[2];
+    a[1] = 9;
+    print("%d",a[1]);
+    print("%d",a[2]);
 }
 

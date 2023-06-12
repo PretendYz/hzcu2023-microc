@@ -1,4 +1,5 @@
 {
     "FSharp.inlayHints.enabled": false,
-    "editor.inlayHints.enabled": "offUnlessPressed"
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    "C_Cpp.errorSquiggles": "disabled"
 }

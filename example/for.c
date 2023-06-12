@@ -1,6 +1,5 @@
-void main(){
-    int i;
+void main(int i){
     for(i=1;i<=5;i++){
-        print i;
+        printf("%d",i);
     }
 }

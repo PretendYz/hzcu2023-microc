@@ -1,6 +1,6 @@
 void main(int n){
     do{
         printf("%d",n);
-        n--;
-    }while(n);
+        n++;
+    }until(n>0);
 }

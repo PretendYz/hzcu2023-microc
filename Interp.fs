@@ -350,6 +350,13 @@ let rec exec stmt (locEnv: locEnv) (gloEnv: gloEnv) (store: store) : store =
         let store1=exec body locEnv gloEnv store 
         // 然后根据判定值执行While循环辅助函数 loop
         exec (While(e, body)) locEnv gloEnv store1
+
+    | DoUntil (e, body) ->
+        let rec loop store1 =
+            let (v, store2) = eval e locEnv gloEnv store1
+            if v.int=0 then loop (exec body locEnv gloEnv store2)
+            else store2    
+        loop (exec body locEnv gloEnv store)
     
     | Expr e ->
         // _ 表示丢弃e的值,返回 变更后的环境store1

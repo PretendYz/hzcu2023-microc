@@ -52,6 +52,7 @@ type token =
   | WHILE
   | FOR
   | DO
+  | UNTIL
   | CSTSTRING of (string)
   | NAME of (string)
   | CSTBOOL of (bool)
@@ -109,6 +110,7 @@ type tokenId =
     | TOKEN_WHILE
     | TOKEN_FOR
     | TOKEN_DO
+    | TOKEN_UNTIL
     | TOKEN_CSTSTRING
     | TOKEN_NAME
     | TOKEN_CSTBOOL
