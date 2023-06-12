@@ -13,6 +13,9 @@ type token =
   | DESC
   | QUE
   | COLON
+  | SWITCH
+  | CASE
+  | DEFAULT
   | LPAR
   | RPAR
   | LBRACE
@@ -53,6 +56,8 @@ type token =
   | FOR
   | DO
   | UNTIL
+  | BREAK
+  | CONTINUE
   | CSTSTRING of (string)
   | NAME of (string)
   | CSTBOOL of (bool)
@@ -71,6 +76,9 @@ type tokenId =
     | TOKEN_DESC
     | TOKEN_QUE
     | TOKEN_COLON
+    | TOKEN_SWITCH
+    | TOKEN_CASE
+    | TOKEN_DEFAULT
     | TOKEN_LPAR
     | TOKEN_RPAR
     | TOKEN_LBRACE
@@ -111,6 +119,8 @@ type tokenId =
     | TOKEN_FOR
     | TOKEN_DO
     | TOKEN_UNTIL
+    | TOKEN_BREAK
+    | TOKEN_CONTINUE
     | TOKEN_CSTSTRING
     | TOKEN_NAME
     | TOKEN_CSTBOOL
@@ -139,6 +149,7 @@ type nonTerminalId =
     | NONTERM_Access
     | NONTERM_Exprs
     | NONTERM_Exprs1
+    | NONTERM_StmtCase
     | NONTERM_ConstBool
     | NONTERM_ConstInt
     | NONTERM_ConstString

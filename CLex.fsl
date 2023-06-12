@@ -34,7 +34,12 @@ let keyword s =
     | "while"   -> WHILE
     | "for"     -> FOR
     | "do"      -> DO
-    | "until"   -> UNTIL  
+    | "switch"  -> SWITCH
+    | "case"    -> CASE
+    | "default" -> DEFAULT
+    | "until"   -> UNTIL 
+    | "break"   -> BREAK
+    | "continue"-> CONTINUE
     | "sizeOf"  -> SIZEOF
     | "typeOf"  -> TYPEOF
     | _         -> NAME s   // 缺省情况，是标识符的名字，如 函数名，变量名等

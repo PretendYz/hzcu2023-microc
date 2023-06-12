@@ -358,6 +358,29 @@ let rec exec stmt (locEnv: locEnv) (gloEnv: gloEnv) (store: store) : store =
             else store2    
         loop (exec body locEnv gloEnv store)
     
+    | Break -> failwith "return not implemented" // 解释器没有实现 break
+
+    | Continue -> failwith "return not implemented" // 解释器没有实现 continue
+
+    | Switch(e,body) ->
+        let (res, store1) = eval e locEnv gloEnv store
+        let rec choose list =
+            match list with
+            // 自带break的switch
+            | Case(e1,body1) :: tail -> 
+                let (res2, store2) = eval e1 locEnv gloEnv store1
+                if res2=res then   
+                    exec body1 locEnv gloEnv store2
+                else choose tail
+            | [] -> store1
+            | Default(body1) :: tail -> 
+                let _ = exec body1 locEnv gloEnv store1
+                choose tail
+            | _ -> failwith "switch only case or default"
+        (choose body)
+
+    | Case(e,body) -> exec body locEnv gloEnv store
+
     | Expr e ->
         // _ 表示丢弃e的值,返回 变更后的环境store1
         let (_, store1) = eval e locEnv gloEnv store
@@ -375,6 +398,7 @@ let rec exec stmt (locEnv: locEnv) (gloEnv: gloEnv) (store: store) : store =
 
         loop stmts (locEnv, store)
     | Return _ -> failwith "return not implemented" // 解释器没有实现 return
+    | Default(_) -> failwith "default Not Implemented" 
 
 and stmtordec stmtordec locEnv gloEnv store =
     match stmtordec with

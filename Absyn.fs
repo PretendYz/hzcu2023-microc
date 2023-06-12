@@ -34,10 +34,10 @@ and expr =                           // 表达式，右值
   | Andalso of expr * expr           (* Sequential and              *)
   | Orelse of expr * expr            (* Sequential or               *)
   | Call of string * expr list       (* Function call f(...)        *)
-  | Print of string * expr
-  | Println of access
-  | Sizeof of expr
-  | Typeof of expr
+  | Print of string * expr           (* format print                *)
+  | Println of access                (* println                     *)
+  | Sizeof of expr                   (* calculated storage size     *)
+  | Typeof of expr                   (* find var type               *)
                                                                    
 and access =                         //左值，存储的位置                                            
   | AccVar of string                 (* Variable access        x    *) 
@@ -54,6 +54,11 @@ and stmt =
   | For of expr * expr * expr * stmt (* For loop                    *)
   | DoWhile of expr * stmt           (* DoWhile loop                *)
   | DoUntil of expr * stmt           (* DoUntil loop                *)
+  | Switch of expr * stmt list
+  | Case of expr * stmt
+  | Default of stmt
+  | Break                            (* break loop                  *)
+  | Continue                         (* continue loop               *)
 
 and stmtordec =                                                    
   | Dec of typ * string              (* Local variable declaration  *)
