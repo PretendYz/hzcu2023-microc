@@ -196,6 +196,8 @@ ExprNotAccess:
   | Expr QUE Expr COLON Expr            { Prim3($1, $3, $5)   } // 三目运算
   | Access INC                          { Assign($1, Prim2("+",  Access $1, CstI (1))) } // i++
   | INC Access                          { Assign($2, Prim2("+",  Access $2, CstI (1))) } // ++i 
+  | INC Access                          { Assign($2, Prim2("+",  Access $2, CstI (1))) } // ++i 
+
   | Access DESC                         { Assign($1, Prim2("-",  Access $1, CstI (1))) } // i--
   | DESC Access                         { Assign($2, Prim2("-",  Access $2, CstI (1))) } // --i 
   | Expr SEQAND Expr                    { Andalso($1, $3)     }
