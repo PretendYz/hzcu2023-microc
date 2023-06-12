@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj": {}
+    "D:\\ZUCC\\编译原理\\microc\\microcc.fsproj": {}
   },
   "projects": {
-    "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj": {
+    "D:\\ZUCC\\编译原理\\microc\\microcc.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj",
-        "projectName": "interpc",
-        "projectPath": "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj",
+        "projectUniqueName": "D:\\ZUCC\\编译原理\\microc\\microcc.fsproj",
+        "projectName": "microcc",
+        "projectPath": "D:\\ZUCC\\编译原理\\microc\\microcc.fsproj",
         "packagesPath": "C:\\Users\\XuHan\\.nuget\\packages\\",
         "outputPath": "D:\\ZUCC\\编译原理\\microc\\obj\\",
         "projectStyle": "PackageReference",
@@ -42,7 +42,7 @@
             },
             "FsLexYacc": {
               "target": "Package",
-              "version": "[10.2.0, )",
+              "version": "[10.0.0, )",
               "generatePathProperty": true
             }
           },
