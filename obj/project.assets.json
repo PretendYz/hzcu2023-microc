@@ -238,11 +238,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj",
       "projectName": "interpc",
       "projectPath": "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj",
       "packagesPath": "C:\\Users\\XuHan\\.nuget\\packages\\",
       "outputPath": "D:\\ZUCC\\编译原理\\microc\\obj\\",
+=======
+      "projectUniqueName": "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\microc.fsproj",
+      "projectName": "microc",
+      "projectPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\microc.fsproj",
+      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+      "outputPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\obj\\",
+>>>>>>> upstream/master
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\XuHan\\AppData\\Roaming\\NuGet\\NuGet.Config"
