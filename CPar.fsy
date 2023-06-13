@@ -176,7 +176,7 @@ ExprNotAccess:
   | NAME LPAR Exprs RPAR                { Call($1, $3)        }  
   | NOT Expr                            { Prim1("!", $2)      }
   | PRINT LPAR CSTSTRING COMMA Expr RPAR{ Print($3, $5)       }
-  | PRINTLN LPAR  Access RPAR           { Println($3)         }
+  | PRINTLN LPAR  CSTSTRING COMMA Expr RPAR{ Println($3, $5)         }
   | Expr PLUS  Expr                     { Prim2("+",  $1, $3) }
   | Expr MINUS Expr                     { Prim2("-",  $1, $3) }
   | Expr TIMES Expr                     { Prim2("*",  $1, $3) }

@@ -91,8 +91,8 @@
   
   # 执行解释器
   # ./bin/Debug/net6.0/interpc.exe test_interp/xxx.c [args]
-  dotnet run -p interpc.fsproj test_interp/xxx.c [args]
-  # dotnet run -p interpc.fsproj -g test_interp/xxx.c [args] 
+  dotnet run --project interpc.fsproj test_interp/xxx.c [args]
+  # dotnet run --project interpc.fsproj -g test_interp/xxx.c [args] 
   # -g 显示token AST 等调试信息  
   ```
   

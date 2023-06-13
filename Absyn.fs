@@ -35,7 +35,7 @@ and expr =                           // 表达式，右值
   | Orelse of expr * expr            (* Sequential or               *)
   | Call of string * expr list       (* Function call f(...)        *)
   | Print of string * expr           (* format print                *)
-  | Println of access                (* println                     *)
+  | Println of string * expr         (* format println              *)
   | Sizeof of expr                   (* calculated storage size     *)
   | Typeof of expr                   (* find var type               *)
                                                                    

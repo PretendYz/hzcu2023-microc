@@ -233,33 +233,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\XuHan\\.nuget\\packages\\": {}
+    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj",
+      "projectUniqueName": "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\interpc.fsproj",
       "projectName": "interpc",
-      "projectPath": "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj",
-      "packagesPath": "C:\\Users\\XuHan\\.nuget\\packages\\",
-      "outputPath": "D:\\ZUCC\\编译原理\\microc\\obj\\",
-=======
-      "projectUniqueName": "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\microc.fsproj",
-      "projectName": "microc",
-      "projectPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\microc.fsproj",
+      "projectPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\interpc.fsproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\obj\\",
->>>>>>> upstream/master
+      "outputPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\XuHan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "D:\\dotnet\\sdk\\6.0.406\\FSharp\\library-packs": {},
+        "C:\\Program Files\\dotnet\\sdk\\6.0.406\\FSharp\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {},
         "https://nuget.cdn.azure.cn/v3/index.json": {}
       },
       "frameworks": {
@@ -301,7 +294,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "D:\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
       }
     }
   }
