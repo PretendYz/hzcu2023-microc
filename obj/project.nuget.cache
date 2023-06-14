@@ -1,18 +1,19 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "B/CQ5X6rfFe7S4ZtkcJiQ/eBDZ5VRCjaV7NfqP5cqFZsIaN/TLx3u+GeEJ09tpshC5BzfaTSet4u6JLaBazkqQ==",
   "success": true,
   "projectFilePath": "D:\\ZUCC\\编译原理\\microc\\interpc.fsproj",
-=======
-  "dgSpecHash": "w4uPE7yI1Aop4ifl1lVd13wGnJdgwyUPAzSLdqn+vwRRyPDraBhjNc6bDYyoT3faXJrnpFjiwaPulT9DfrjVHw==",
-  "success": true,
-  "projectFilePath": "E:\\大三下\\编程语言原理与编译\\lastwork\\microc\\microc.fsproj",
->>>>>>> upstream/master
   "expectedPackageFiles": [
     "C:\\Users\\XuHan\\.nuget\\packages\\fsharp.core\\6.0.7\\fsharp.core.6.0.7.nupkg.sha512",
     "C:\\Users\\XuHan\\.nuget\\packages\\fslexyacc\\10.2.0\\fslexyacc.10.2.0.nupkg.sha512",
     "C:\\Users\\XuHan\\.nuget\\packages\\fslexyacc.runtime\\10.2.0\\fslexyacc.runtime.10.2.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "读取缓存文件 D:\\ZUCC\\编译原理\\microc\\obj\\project.nuget.cache 时遇到问题: Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
