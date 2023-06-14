@@ -15,6 +15,7 @@ let nl = CstI 10 //  \n 的 ASCII 码
 %}
 
 %token <int> CSTINT         // <int> 是词元的语义值类型
+%token <char> CSTCHAR
 %token <float32> CSTFLOAT
 %token <bool> CSTBOOL
 %token <string> CSTSTRING NAME
@@ -41,7 +42,7 @@ let nl = CstI 10 //  \n 的 ASCII 码
 %left PLUS MINUS
 %left TIMES DIV MOD
 %right INC DESC           /* 右结合 */
-%nonassoc NOT AMP SIZEOF
+%nonassoc NOT AMP SIZEOF TYPEOF
 %nonassoc LBRACK          /* highest precedence  */
 
 %start Main            // 语法开始符号
@@ -171,6 +172,7 @@ Expr:
   //非左值的情况
 ExprNotAccess:
     AtExprNotAccess                     { $1                  }
+  | TYPEOF LPAR Expr RPAR               { Typeof($3)          } // 计算类型
   | SIZEOF LPAR Expr RPAR               { Sizeof($3)          } // 计算类型大小
   | Access ASSIGN Expr                  { Assign($1, $3)      } // $1为左值
   | NAME LPAR Exprs RPAR                { Call($1, $3)        }  
@@ -207,10 +209,11 @@ AtExprNotAccess:
     // Const ,  3
     // AMP Access  , &x
     // (3)   
-    ConstInt                            { CstI $1             }
-  | ConstString                         { CstS($1)            }
-  | ConstFloat                          { CstF($1)            }
-  | ConstBool                           { CstB($1)            }
+    CstI                                { CstI $1             }
+  | CstC                                { CstC $1             }
+  | CstS                                { CstS($1)            }
+  | CstF                                { CstF($1)            }
+  | CstB                                { CstB($1)            }
   | LPAR ExprNotAccess RPAR             { $2                  } 
   | AMP Access                          { Addr $2             } // 取地址
 ;
@@ -239,21 +242,25 @@ StmtCase:
   | CASE AtExprNotAccess COLON StmtM StmtCase      { Case($2,$4) :: $5}
 ;
 
-ConstBool:
+CstC:
+  CSTCHAR                               { $1       }
+;
+
+CstB:
   | CSTBOOL                             { $1       }
 ;
 
-ConstInt:
+CstI:
     CSTINT                              { $1       }
   | MINUS CSTINT                        { - $2     }
   | NULL                                { -1       }
 ;
 
-ConstString:
+CstS:
   CSTSTRING                             { $1       }
 ;
 
-ConstFloat:
+CstF:
     CSTFLOAT                            { $1       }
   | MINUS CSTFLOAT                      { - $2     }
 ; 

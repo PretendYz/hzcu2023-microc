@@ -140,8 +140,26 @@ L6:
 	pop r10
 	add rax, r10
 	push rax
-	;CSTI -1
-	push -1
+	;GETBP
+	push rbp
+	;OFFSET 0
+	push -0
+	;ADD
+	pop rax
+	pop r10
+	add rax, r10
+	push rax
+	;LDI
+	pop rax
+	mov rax,[rax]
+	push rax
+	;CSTI 1
+	push 1
+	;SUB
+	pop r10
+	pop rax
+	sub rax,r10
+	push rax
 	;STI
 	pop r10
 	pop rax

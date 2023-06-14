@@ -25,17 +25,19 @@
 （完善程度：个人认为实现的完善程度，个人花费的工作量等
 	难度：实现的困难程度，工作量大小，老师定义的困难程度等
 
-| 解释器         | 完善程度 | 难度 | 备注                         |
-| -------------- | -------- | ---- | ---------------------------- |
-| 三元运算符 ?:  | ⭐⭐⭐      | 1    | test_interp/threeOperation.c |
-| bool类型       | ⭐⭐⭐⭐     | 2    |                              |
-| float转型      | ⭐⭐⭐⭐     | 2    |                              |
-| string类型     | ⭐⭐⭐⭐     | 2    |                              |
-| for语句        | ⭐⭐⭐      | 2    | test_interp/for.c            |
-| += 等语法糖    | ⭐⭐⭐⭐⭐    | 1    | test_interp/self_assign.c    |
-| dowhile语句    | ⭐⭐⭐      | 1    | test_interp/dowhile.c        |
-| dountil语句    | ⭐⭐⭐      | 1    | test_interp/dowhile.c        |
-| printf格式输出 | ⭐⭐       | 1    |                              |
+| 解释器        | 完善程度 | 难度 | 备注                         |
+| ------------- | -------- | ---- | ---------------------------- |
+| 三元运算符 ?: | ⭐⭐⭐      | 1    | test_interp/threeOperation.c |
+| bool类型      | ⭐⭐⭐⭐     | 2    | test_interp/print.c          |
+| char类型      | ⭐⭐       | 1    | test_interp/print.c          |
+| float类型     | ⭐⭐⭐⭐     | 2    | test_interp/print.c          |
+| string类型    | ⭐⭐⭐⭐     | 2    | test_interp/print.c          |
+| for语句       | ⭐⭐⭐      | 2    | test_interp/for.c            |
+| += 等语法糖   | ⭐⭐⭐⭐⭐    | 1    | test_interp/self_assign.c    |
+| dowhile语句   | ⭐⭐⭐      | 1    | test_interp/dowhile.c        |
+| dountil语句   | ⭐⭐⭐      | 1    | test_interp/dowhile.c        |
+| print格式输出 | ⭐⭐       | 1    | test_interp/print.c          |
+| sizeof 计算   | ⭐⭐⭐      | 2    | test_interp/sizeof.c         |
 
 
 
@@ -135,7 +137,7 @@
   ```
   
   1. 解释器
-  2. 
+  2. 编译器
 
 ### 3. 解决技术要点说明
 

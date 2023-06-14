@@ -4,7 +4,7 @@ void main(int n){
         if(n<0){
             break;
         }
-        n=-1;
-        // n=n-1;
+        // n=-1;
+        n=n-1;
     }
 }
