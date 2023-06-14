@@ -215,7 +215,16 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
 
     | Return None -> [ RET(snd varEnv - 1) ]
     | Return (Some e) -> cExpr e varEnv funEnv @ [ RET(snd varEnv) ]
-    | For(_, _, _, _) -> failwith "Not Implemented"
+    | For (e1, e2, e3, body) -> 
+        let labbegin = newLabel ()
+        let labtest = newLabel ()
+        let labend = newLabel ()
+        lablist <- [labend; labtest; labbegin]
+        cExpr e1 varEnv funEnv
+        @ [ GOTO labtest; Label labbegin ]
+            @ cStmt body varEnv funEnv @ cExpr e3 varEnv funEnv
+                @ [ Label labtest ]
+                    @ cExpr e2 varEnv funEnv @ [ IFNZRO labbegin; Label labend ]
 
     | DoWhile(e,body) -> 
         let labbegin = newLabel ()
@@ -237,7 +246,8 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         @ [ GOTO labtest; Label labbegin ]
             @ cStmt body varEnv funEnv
                 @ [ Label labtest ]
-                    @ cExpr e varEnv funEnv @ [ IFNZRO labend; Label labend ]
+                    @ cExpr e varEnv funEnv @ [ IFZERO labbegin; Label labend ]
+                    // @ cExpr e varEnv funEnv @ [ IFNZRO labend; Label labend ]
     
     | Switch(_, _) -> failwith "Not Implemented"
     | Case(_, _) -> failwith "Not Implemented"
@@ -334,7 +344,14 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     | CstB(_) -> failwith "CstB Not Implemented"
     | CstS(_) -> failwith "CstS Not Implemented"
     | CstF(_) -> failwith "CstF Not Implemented"
-    | Prim3(_, _, _) -> failwith "Prim3 Not Implemented"
+    | Prim3 (e1, e2, e3) -> 
+        let labfalse = newLabel ()
+        let labend = newLabel ()
+        cExpr e1 varEnv funEnv
+        @ [ IFZERO labfalse ]
+        @ cExpr e2 varEnv funEnv @ [ GOTO labend; Label labfalse]
+        @ cExpr e3 varEnv funEnv @ [ Label labend ]
+
     | Println(_, _) -> failwith "Println Not Implemented"
     | Sizeof(_) -> failwith "Sizeof Not Implemented"
     | Typeof(_) -> failwith "Typeof Not Implemented"
