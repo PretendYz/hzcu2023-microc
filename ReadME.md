@@ -25,28 +25,28 @@
 （完善程度：个人认为实现的完善程度，个人花费的工作量等
 	难度：实现的困难程度，工作量大小，老师定义的困难程度等
 
-| 解释器         | 完善程度 | 难度 | 备注                     |
-| -------------- | -------- | ---- | ------------------------ |
-| 三元运算符 ?:  | ⭐⭐⭐      | 1    | example/threeOperation.c |
-| bool类型       | ⭐⭐⭐⭐     | 2    |                          |
-| float转型      | ⭐⭐⭐⭐     | 2    |                          |
-| string类型     | ⭐⭐⭐⭐     | 2    |                          |
-| for语句        | ⭐⭐⭐      | 2    | example/for.c            |
-| += 等语法糖    | ⭐⭐⭐⭐⭐    | 1    | example/self_assign.c    |
-| dowhile语句    | ⭐⭐⭐      | 1    | example/dowhile.c        |
-| dountil语句    | ⭐⭐⭐      | 1    | example/dowhile.c        |
-| printf格式输出 | ⭐⭐       | 1    |                          |
+| 解释器         | 完善程度 | 难度 | 备注                         |
+| -------------- | -------- | ---- | ---------------------------- |
+| 三元运算符 ?:  | ⭐⭐⭐      | 1    | test_interp/threeOperation.c |
+| bool类型       | ⭐⭐⭐⭐     | 2    |                              |
+| float转型      | ⭐⭐⭐⭐     | 2    |                              |
+| string类型     | ⭐⭐⭐⭐     | 2    |                              |
+| for语句        | ⭐⭐⭐      | 2    | test_interp/for.c            |
+| += 等语法糖    | ⭐⭐⭐⭐⭐    | 1    | test_interp/self_assign.c    |
+| dowhile语句    | ⭐⭐⭐      | 1    | test_interp/dowhile.c        |
+| dountil语句    | ⭐⭐⭐      | 1    | test_interp/dowhile.c        |
+| printf格式输出 | ⭐⭐       | 1    |                              |
 
 
 
-| 编译器 | 完善程度 | 难度 | 备注 |
-| ------ | -------- | ---- | ---- |
-|        |          |      |      |
-|        |          |      |      |
-|        |          |      |      |
-|        |          |      |      |
-|        |          |      |      |
-|        |          |      |      |
+| 编译器 | 完善程度 | 难度 | 备注      |
+| ------ | -------- | ---- | --------- |
+|        |          |      | test_comp |
+|        |          |      | test_comp |
+|        |          |      | test_comp |
+|        |          |      | test_comp |
+|        |          |      | test_comp |
+|        |          |      | test_comp |
 
 ### 2. 项目说明
 
@@ -122,14 +122,16 @@
   ./bin/Debug/net6.0/microcc.exe test_comp/xxx.c [args]         # 直接执行
   ```
   
-  **Java虚拟机：**
+  **C 虚拟机：**
   
   ```sh
-  javac Machine.java
-  java Machine test_comp/xxx.out [args]
+  # 编译 c 虚拟机
+  gcc -o machine.exe machine.c
+  # 虚拟机执行指令
+  machine.exe test_comp/xxx.out [args]
   
-  javac Machinetrace.java
-  java Machinetrace test_comp/xxx.out [args]      # 可以查看栈
+  # 调试执行指令
+  machine.exe -trace test_comp/xxx.out [args]  # -trace  并查看跟踪信息
   ```
   
   

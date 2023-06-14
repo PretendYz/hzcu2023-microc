@@ -166,6 +166,16 @@ let x86patch code =
    * varenv  is the local and global variable environment
    * funEnv  is the global function environment
 *)
+let mutable lablist : label list = []
+
+let rec headlab labs = 
+    match labs with
+        | lab :: tr -> lab
+        | []        -> failwith "Error: unknown break"
+let rec dellab labs =
+    match labs with
+        | lab :: tr ->   tr
+        | []        ->   []
 
 let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     match stmt with
@@ -206,14 +216,18 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     | Return (Some e) -> cExpr e varEnv funEnv @ [ RET(snd varEnv) ]
     | For(_, _, _, _) -> failwith "Not Implemented"
 
-    | DoWhile(e,body) -> failwith "Not Implemented"
+    | DoWhile(e,body) -> failwith "do while Not Implemented"
     | DoUntil(_, _) -> failwith "Not Implemented"
     | Switch(_, _) -> failwith "Not Implemented"
     | Case(_, _) -> failwith "Not Implemented"
     | Default(_) -> failwith "Not Implemented"
-    | Break -> failwith "Not Implemented"
-    | Continue -> failwith "Not Implemented"
-    // | _ -> failwith "Not Implemented"
+    | Break -> 
+        let labend = headlab lablist
+        [GOTO labend]
+    | Continue -> 
+        let lablist= dellab lablist
+        let labbegin = headlab lablist
+        [GOTO labbegin]
 
 and cStmtOrDec stmtOrDec (varEnv: VarEnv) (funEnv: FunEnv) : VarEnv * instr list =
     match stmtOrDec with
@@ -263,6 +277,15 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
              | ">" -> [ SWAP; LT ]
              | "<=" -> [ SWAP; LT; NOT ]
              | _ -> raise (Failure "unknown primitive 2"))
+    | Print (op, e) ->
+        cExpr e varEnv funEnv
+        @ (match op with
+           | "!" -> [ NOT ]
+           | "%d" -> [ PRINTI ]
+           | "%c" -> [ PRINTC ]
+        //    | "%s" -> [ BITNOT ]
+           | _ -> raise (Failure "unknown primitive else format print"))
+
     | Andalso (e1, e2) ->
         let labend = newLabel ()
         let labfalse = newLabel ()
