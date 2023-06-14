@@ -493,7 +493,16 @@ and eval e locEnv gloEnv store : enumType * store =
 
         if i1.int <> 0 then res else eval e2 locEnv gloEnv store1
     | Call(f, es) -> callfun f es locEnv gloEnv store
-    | Println(_) -> failwith "Not Implemented"
+    | Println(op,e1) -> 
+        let (i1, store1) = eval e1 locEnv gloEnv store
+        let res = 
+            match op with
+            | "%c"   -> (printfn "%c " i1.char; i1)
+            | "%d"   -> (printfn "%d " i1.int; i1)  
+            | "%f"   -> (printfn "%f " i1.float; i1 )
+            | "%s"   -> (printfn "%s " i1.string; i1 )
+            | _      -> failwith ("wrong format")
+        (res, store1)
 
 
 and access acc locEnv gloEnv store : int * store =

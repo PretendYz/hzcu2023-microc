@@ -166,6 +166,16 @@ let x86patch code =
    * varenv  is the local and global variable environment
    * funEnv  is the global function environment
 *)
+let mutable lablist : label list = []
+
+let rec headlab labs = 
+    match labs with
+        | lab :: tr -> lab
+        | []        -> failwith "Error: unknown break"
+let rec dellab labs =
+    match labs with
+        | lab :: tr ->   tr
+        | []        ->   []
 
 let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     match stmt with
@@ -182,11 +192,12 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     | While (e, body) ->
         let labbegin = newLabel ()
         let labtest = newLabel ()
-
+        let labend = newLabel ()
+        lablist <- [labend; labtest; labbegin]
         [ GOTO labtest; Label labbegin ]
         @ cStmt body varEnv funEnv
           @ [ Label labtest ]
-            @ cExpr e varEnv funEnv @ [ IFNZRO labbegin ]
+            @ cExpr e varEnv funEnv @ [ IFNZRO labbegin; Label labend ]
     | Expr e -> cExpr e varEnv funEnv @ [ INCSP -1 ]
     | Block stmts ->
 
@@ -204,16 +215,50 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
 
     | Return None -> [ RET(snd varEnv - 1) ]
     | Return (Some e) -> cExpr e varEnv funEnv @ [ RET(snd varEnv) ]
-    | For(_, _, _, _) -> failwith "Not Implemented"
+    | For (e1, e2, e3, body) -> 
+        let labbegin = newLabel ()
+        let labtest = newLabel ()
+        let labend = newLabel ()
+        lablist <- [labend; labtest; labbegin]
+        cExpr e1 varEnv funEnv
+        @ [ GOTO labtest; Label labbegin ]
+            @ cStmt body varEnv funEnv @ cExpr e3 varEnv funEnv
+                @ [ Label labtest ]
+                    @ cExpr e2 varEnv funEnv @ [ IFNZRO labbegin; Label labend ]
 
-    | DoWhile(e,body) -> failwith "Not Implemented"
-    | DoUntil(_, _) -> failwith "Not Implemented"
+    | DoWhile(e,body) -> 
+        let labbegin = newLabel ()
+        let labtest = newLabel ()
+        let labend = newLabel ()
+        lablist <- [labend; labtest; labbegin]
+        cStmt body varEnv funEnv
+        @ [ GOTO labtest; Label labbegin ]
+            @ cStmt body varEnv funEnv
+                @ [ Label labtest ]
+                    @ cExpr e varEnv funEnv @ [ IFNZRO labbegin; Label labend ]
+            
+    | DoUntil(e, body) -> 
+        let labbegin = newLabel ()
+        let labtest = newLabel ()
+        let labend = newLabel ()
+        lablist <- [labend; labtest; labbegin]
+        cStmt body varEnv funEnv
+        @ [ GOTO labtest; Label labbegin ]
+            @ cStmt body varEnv funEnv
+                @ [ Label labtest ]
+                    @ cExpr e varEnv funEnv @ [ IFZERO labbegin; Label labend ]
+                    // @ cExpr e varEnv funEnv @ [ IFNZRO labend; Label labend ]
+    
     | Switch(_, _) -> failwith "Not Implemented"
     | Case(_, _) -> failwith "Not Implemented"
     | Default(_) -> failwith "Not Implemented"
-    | Break -> failwith "Not Implemented"
-    | Continue -> failwith "Not Implemented"
-    // | _ -> failwith "Not Implemented"
+    | Break -> 
+        let labend = headlab lablist
+        [GOTO labend]
+    | Continue -> 
+        let lablist= dellab lablist
+        let labbegin = headlab lablist
+        [GOTO labbegin]
 
 and cStmtOrDec stmtOrDec (varEnv: VarEnv) (funEnv: FunEnv) : VarEnv * instr list =
     match stmtOrDec with
@@ -263,6 +308,15 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
              | ">" -> [ SWAP; LT ]
              | "<=" -> [ SWAP; LT; NOT ]
              | _ -> raise (Failure "unknown primitive 2"))
+    | Print (op, e) ->
+        cExpr e varEnv funEnv
+        @ (match op with
+           | "!" -> [ NOT ]
+           | "%d" -> [ PRINTI ]
+           | "%c" -> [ PRINTC ]
+        //    | "%s" -> [ BITNOT ]
+           | _ -> raise (Failure "unknown primitive else format print"))
+
     | Andalso (e1, e2) ->
         let labend = newLabel ()
         let labfalse = newLabel ()
@@ -286,7 +340,21 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
                 CSTI 1
                 Label labend ]
     | Call (f, es) -> callfun f es varEnv funEnv
-    | _ -> failwith "Not Implemented"
+    | CstC(_) -> failwith "CstC Not Implemented"
+    | CstB(_) -> failwith "CstB Not Implemented"
+    | CstS(_) -> failwith "CstS Not Implemented"
+    | CstF(_) -> failwith "CstF Not Implemented"
+    | Prim3 (e1, e2, e3) -> 
+        let labfalse = newLabel ()
+        let labend = newLabel ()
+        cExpr e1 varEnv funEnv
+        @ [ IFZERO labfalse ]
+        @ cExpr e2 varEnv funEnv @ [ GOTO labend; Label labfalse]
+        @ cExpr e3 varEnv funEnv @ [ Label labend ]
+
+    | Println(_, _) -> failwith "Println Not Implemented"
+    | Sizeof(_) -> failwith "Sizeof Not Implemented"
+    | Typeof(_) -> failwith "Typeof Not Implemented"
 
 (* Generate code to access variable, dereference pointer or index array.
    The effect of the compiled code is to leave an lvalue on the stack.   *)

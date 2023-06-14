@@ -40,8 +40,8 @@ let keyword s =
     | "until"   -> UNTIL 
     | "break"   -> BREAK
     | "continue"-> CONTINUE
-    | "sizeOf"  -> SIZEOF
-    | "typeOf"  -> TYPEOF
+    | "sizeof"  -> SIZEOF
+    | "typeof"  -> TYPEOF
     | _         -> NAME s   // 缺省情况，是标识符的名字，如 函数名，变量名等
                             // 当所有的关键字没有匹配成功时，则当成标识符
 // 字符串转义符处理函数
@@ -71,6 +71,8 @@ rule Token = parse          // 每个 规则rule 会生成为一个函数，函�
                             //  System.Int32.Parse 将 字符串转换为 int 类型
                             // 在 CPar 中  词元CSTINT 的语义值的类型是int  %token <int> CSTINT
                             //  CSTINT 需要一个整数作为参数
+  | ['\'']['a'-'z''A'-'Z''0'-'9']['\'']            
+                    { try let single = lexemeAsString lexbuf in CSTCHAR (System.Char.Parse(single.Substring(1, 1))) with ex -> failwith "Char literal error." }
 
   | ("false"|"true")    { CSTBOOL (System.Boolean.Parse (lexemeAsString lexbuf ))  }
   | ['0'-'9']+'.'['0'-'9']+ 
