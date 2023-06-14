@@ -217,8 +217,28 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     | Return (Some e) -> cExpr e varEnv funEnv @ [ RET(snd varEnv) ]
     | For(_, _, _, _) -> failwith "Not Implemented"
 
-    | DoWhile(e,body) -> failwith "do while Not Implemented"
-    | DoUntil(_, _) -> failwith "Not Implemented"
+    | DoWhile(e,body) -> 
+        let labbegin = newLabel ()
+        let labtest = newLabel ()
+        let labend = newLabel ()
+        lablist <- [labend; labtest; labbegin]
+        cStmt body varEnv funEnv
+        @ [ GOTO labtest; Label labbegin ]
+            @ cStmt body varEnv funEnv
+                @ [ Label labtest ]
+                    @ cExpr e varEnv funEnv @ [ IFNZRO labbegin; Label labend ]
+            
+    | DoUntil(e, body) -> 
+        let labbegin = newLabel ()
+        let labtest = newLabel ()
+        let labend = newLabel ()
+        lablist <- [labend; labtest; labbegin]
+        cStmt body varEnv funEnv
+        @ [ GOTO labtest; Label labbegin ]
+            @ cStmt body varEnv funEnv
+                @ [ Label labtest ]
+                    @ cExpr e varEnv funEnv @ [ IFNZRO labend; Label labend ]
+    
     | Switch(_, _) -> failwith "Not Implemented"
     | Case(_, _) -> failwith "Not Implemented"
     | Default(_) -> failwith "Not Implemented"

@@ -33,22 +33,23 @@
 | float类型     | ⭐⭐⭐⭐     | 2    | test_interp/print.c          |
 | string类型    | ⭐⭐⭐⭐     | 2    | test_interp/print.c          |
 | for语句       | ⭐⭐⭐      | 2    | test_interp/for.c            |
-| += 等语法糖   | ⭐⭐⭐⭐⭐    | 1    | test_interp/self_assign.c    |
+| +=等语法糖    | ⭐⭐⭐⭐⭐    | 1    | test_interp/self_assign.c    |
 | dowhile语句   | ⭐⭐⭐      | 1    | test_interp/dowhile.c        |
 | dountil语句   | ⭐⭐⭐      | 1    | test_interp/dowhile.c        |
 | print格式输出 | ⭐⭐       | 1    | test_interp/print.c          |
-| sizeof 计算   | ⭐⭐⭐      | 2    | test_interp/sizeof.c         |
+| sizeof        | ⭐⭐⭐      | 2    | test_interp/sizeof.c         |
+| typeof        | ⭐⭐⭐⭐     | 2    | test_interp/typeof.c         |
 
 
 
-| 编译器 | 完善程度 | 难度 | 备注      |
-| ------ | -------- | ---- | --------- |
-|        |          |      | test_comp |
-|        |          |      | test_comp |
-|        |          |      | test_comp |
-|        |          |      | test_comp |
-|        |          |      | test_comp |
-|        |          |      | test_comp |
+| 编译器   | 完善程度 | 难度 | 备注                 |
+| -------- | -------- | ---- | -------------------- |
+| break    | ⭐⭐⭐⭐     | 2    | test_comp/break.c    |
+| continue | ⭐⭐⭐⭐     | 2    | test_comp/continue.c |
+|          |          |      | test_comp            |
+|          |          |      | test_comp            |
+|          |          |      | test_comp            |
+|          |          |      | test_comp            |
 
 ### 2. 项目说明
 
@@ -137,7 +138,9 @@
   ```
   
   1. 解释器
+     - 
   2. 编译器
+     - 
 
 ### 3. 解决技术要点说明
 
