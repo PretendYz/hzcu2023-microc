@@ -52,6 +52,7 @@
 | dountil语句   | ⭐⭐⭐      | 1    | test_comp/dountil.c        |
 | for语句       | ⭐⭐⭐      | 1    | test_comp/for.c            |
 | 三元运算符 ?: | ⭐⭐⭐⭐     | 1    | test_comp/threeOperation.c |
+|               |          |      |                            |
 
 ### 2. 项目说明
 
@@ -305,11 +306,107 @@
   2. 编译器测试
   
      - break
+  
+       ```c
+       void main(int n){
+           while(1){
+               printf("%d",n);
+               if(n<0){
+                   break;
+               }
+               // n=-1;
+               n=n-1;
+           }
+       }
+       ```
+  
+       ![image-20230614163120121](assets/image-20230614163120121.png)
+  
      - continue
+  
+       ```c
+       void main(int n){
+           n=0;
+           while(n<6){
+               n=n+1;
+               if(n==1){
+                   // printf("%s","跳过了");
+                   // printf("%d",1);
+                   continue;
+               }
+               printf("%d",n);
+           }
+       }
+       ```
+  
+       ![image-20230614163255740](assets/image-20230614163255740.png)
+  
      - dowhile
+  
+       ```c
+       void main(int n){
+           do{
+               printf("%d",n);
+               n--;
+           }while(n);
+       }
+       ```
+  
+       ![image-20230614163328164](assets/image-20230614163328164.png)
+  
      - dountil
+  
+       ```c
+       void main(int n){
+           do{
+               printf("%d",n);
+               n++;
+           }until(n>0);
+       }
+       ```
+  
+       ![image-20230614163356420](assets/image-20230614163356420.png)
+  
      - for
-     - 
+  
+       ```c
+       void main(int i){
+           for(i=1;i<=5;i++){
+               printf("%d",i);
+           }
+       }
+       ```
+  
+       ![image-20230614163418747](assets/image-20230614163418747.png)
+  
+     - 三目运算?:
+  
+       ```c
+       void main(int n) {
+         int a;
+         a = n ? 1 : 0;
+         printf("%d",a);
+       }
+       ```
+  
+       ![image-20230614163453085](assets/image-20230614163453085.png)
+  
+     - 格式输出(有待改进)
+  
+       ```c
+       void main(int n){
+           // println("%d",1);
+           printf("%d",2);
+           // println("%s","Hello World!");
+           printf("%c",65);
+           // println(true);
+           // printf("%c",'b');
+       }
+       ```
+  
+       ![image-20230614164026806](assets/image-20230614164026806.png)
+  
+       
 
 ### 3. 解决技术要点说明
 
@@ -584,9 +681,177 @@ let emptyStore = Map.empty<address, enumType>
            (res, store1)
    ```
 
-#### 3.2 
+#### 3.2 编译器
 
+1. 实现自己定义的执行语句和表达式语句
 
+   ```fsharp
+   let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
+       match stmt with
+       | If (e, stmt1, stmt2) ->
+           let labelse = newLabel ()
+           let labend = newLabel ()
+   
+           cExpr e varEnv funEnv
+           @ [ IFZERO labelse ]
+             @ cStmt stmt1 varEnv funEnv
+               @ [ GOTO labend ]
+                 @ [ Label labelse ]
+                   @ cStmt stmt2 varEnv funEnv @ [ Label labend ]
+       | While (e, body) ->
+           let labbegin = newLabel ()
+           let labtest = newLabel ()
+           let labend = newLabel ()
+           lablist <- [labend; labtest; labbegin]
+           [ GOTO labtest; Label labbegin ]
+           @ cStmt body varEnv funEnv
+             @ [ Label labtest ]
+               @ cExpr e varEnv funEnv @ [ IFNZRO labbegin; Label labend ]
+       | Expr e -> cExpr e varEnv funEnv @ [ INCSP -1 ]
+       | Block stmts ->
+   
+           let rec loop stmts varEnv =
+               match stmts with
+               | [] -> (snd varEnv, [])
+               | s1 :: sr ->
+                   let (varEnv1, code1) = cStmtOrDec s1 varEnv funEnv
+                   let (fdepthr, coder) = loop sr varEnv1
+                   (fdepthr, code1 @ coder)
+   
+           let (fdepthend, code) = loop stmts varEnv
+   
+           code @ [ INCSP(snd varEnv - fdepthend) ]
+   
+       | Return None -> [ RET(snd varEnv - 1) ]
+       | Return (Some e) -> cExpr e varEnv funEnv @ [ RET(snd varEnv) ]
+       | For (e1, e2, e3, body) -> 
+           let labbegin = newLabel ()
+           let labtest = newLabel ()
+           let labend = newLabel ()
+           lablist <- [labend; labtest; labbegin]
+           cExpr e1 varEnv funEnv
+           @ [ GOTO labtest; Label labbegin ]
+               @ cStmt body varEnv funEnv @ cExpr e3 varEnv funEnv
+                   @ [ Label labtest ]
+                       @ cExpr e2 varEnv funEnv @ [ IFNZRO labbegin; Label labend ]
+   
+       | DoWhile(e,body) -> 
+           let labbegin = newLabel ()
+           let labtest = newLabel ()
+           let labend = newLabel ()
+           lablist <- [labend; labtest; labbegin]
+           cStmt body varEnv funEnv
+           @ [ GOTO labtest; Label labbegin ]
+               @ cStmt body varEnv funEnv
+                   @ [ Label labtest ]
+                       @ cExpr e varEnv funEnv @ [ IFNZRO labbegin; Label labend ]
+               
+       | DoUntil(e, body) -> 
+           let labbegin = newLabel ()
+           let labtest = newLabel ()
+           let labend = newLabel ()
+           lablist <- [labend; labtest; labbegin]
+           cStmt body varEnv funEnv
+           @ [ GOTO labtest; Label labbegin ]
+               @ cStmt body varEnv funEnv
+                   @ [ Label labtest ]
+                       @ cExpr e varEnv funEnv @ [ IFZERO labbegin; Label labend ]
+                       // @ cExpr e varEnv funEnv @ [ IFNZRO labend; Label labend ]
+       
+       | Switch(_, _) -> failwith "Not Implemented"
+       | Case(_, _) -> failwith "Not Implemented"
+       | Default(_) -> failwith "Not Implemented"
+       | Break -> 
+           let labend = headlab lablist
+           [GOTO labend]
+       | Continue -> 
+           let lablist= dellab lablist
+           let labbegin = headlab lablist
+           [GOTO labbegin]
+   ```
+
+   ```fsharp
+   and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
+       match e with
+       | Access acc -> cAccess acc varEnv funEnv @ [ LDI ]
+       | Assign (acc, e) ->
+           cAccess acc varEnv funEnv
+           @ cExpr e varEnv funEnv @ [ STI ]
+       | CstI i -> [ CSTI i ]
+       | Addr acc -> cAccess acc varEnv funEnv
+       | Prim1 (ope, e1) ->
+           cExpr e1 varEnv funEnv
+           @ (match ope with
+              | "!" -> [ NOT ]
+              | "printi" -> [ PRINTI ]
+              | "printc" -> [ PRINTC ]
+              | _ -> raise (Failure "unknown primitive 1"))
+       | Prim2 (ope, e1, e2) ->
+           cExpr e1 varEnv funEnv
+           @ cExpr e2 varEnv funEnv
+             @ (match ope with
+                | "*" -> [ MUL ]
+                | "+" -> [ ADD ]
+                | "-" -> [ SUB ]
+                | "/" -> [ DIV ]
+                | "%" -> [ MOD ]
+                | "==" -> [ EQ ]
+                | "!=" -> [ EQ; NOT ]
+                | "<" -> [ LT ]
+                | ">=" -> [ LT; NOT ]
+                | ">" -> [ SWAP; LT ]
+                | "<=" -> [ SWAP; LT; NOT ]
+                | _ -> raise (Failure "unknown primitive 2"))
+       | Print (op, e) ->
+           cExpr e varEnv funEnv
+           @ (match op with
+              | "!" -> [ NOT ]
+              | "%d" -> [ PRINTI ]
+              | "%c" -> [ PRINTC ]
+           //    | "%s" -> [ BITNOT ]
+              | _ -> raise (Failure "unknown primitive else format print"))
+   
+       | Andalso (e1, e2) ->
+           let labend = newLabel ()
+           let labfalse = newLabel ()
+   
+           cExpr e1 varEnv funEnv
+           @ [ IFZERO labfalse ]
+             @ cExpr e2 varEnv funEnv
+               @ [ GOTO labend
+                   Label labfalse
+                   CSTI 0
+                   Label labend ]
+       | Orelse (e1, e2) ->
+           let labend = newLabel ()
+           let labtrue = newLabel ()
+   
+           cExpr e1 varEnv funEnv
+           @ [ IFNZRO labtrue ]
+             @ cExpr e2 varEnv funEnv
+               @ [ GOTO labend
+                   Label labtrue
+                   CSTI 1
+                   Label labend ]
+       | Call (f, es) -> callfun f es varEnv funEnv
+       | CstC(_) -> failwith "CstC Not Implemented"
+       | CstB(_) -> failwith "CstB Not Implemented"
+       | CstS(_) -> failwith "CstS Not Implemented"
+       | CstF(_) -> failwith "CstF Not Implemented"
+       | Prim3 (e1, e2, e3) -> 
+           let labfalse = newLabel ()
+           let labend = newLabel ()
+           cExpr e1 varEnv funEnv
+           @ [ IFZERO labfalse ]
+           @ cExpr e2 varEnv funEnv @ [ GOTO labend; Label labfalse]
+           @ cExpr e3 varEnv funEnv @ [ Label labend ]
+   
+       | Println(_, _) -> failwith "Println Not Implemented"
+       | Sizeof(_) -> failwith "Sizeof Not Implemented"
+       | Typeof(_) -> failwith "Typeof Not Implemented"
+   ```
+
+   
 
 ### 4. 心得体会（结合自己情况具体说明）
 

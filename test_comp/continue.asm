@@ -136,27 +136,6 @@ L2:
 	pop rax
 	mov rax,[rax]
 	push rax
-	;PRINTI
-	pop rcx
-	push rcx
-	sub rsp, 16
-	call printi
-	add rsp, 16
-	;INCSP -1
-	lea rsp, [rsp-8*(-1)]
-	;GETBP
-	push rbp
-	;OFFSET 0
-	push -0
-	;ADD
-	pop rax
-	pop r10
-	add rax, r10
-	push rax
-	;LDI
-	pop rax
-	mov rax,[rax]
-	push rax
 	;CSTI 1
 	push 1
 	;EQ
@@ -185,6 +164,27 @@ L5:
 	lea rsp, [rsp-8*(0)]
 	
 L6:
+	;GETBP
+	push rbp
+	;OFFSET 0
+	push -0
+	;ADD
+	pop rax
+	pop r10
+	add rax, r10
+	push rax
+	;LDI
+	pop rax
+	mov rax,[rax]
+	push rax
+	;PRINTI
+	pop rcx
+	push rcx
+	sub rsp, 16
+	call printi
+	add rsp, 16
+	;INCSP -1
+	lea rsp, [rsp-8*(-1)]
 	;INCSP 0
 	lea rsp, [rsp-8*(0)]
 	

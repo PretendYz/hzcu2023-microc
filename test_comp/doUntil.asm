@@ -219,10 +219,10 @@ L3:
 .Lasm0:
 	push 1
 .Lasm1:
-	;IFNZRO L4
+	;IFZERO L2
 	pop rax
 	cmp rax,0
-	jne L4
+	je L2
 	
 L4:
 	;INCSP 0
