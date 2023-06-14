@@ -134,7 +134,8 @@
   machine.exe -trace test_comp/xxx.out [args]  # -trace  并查看跟踪信息
   ```
   
-  
+  1. 解释器
+  2. 
 
 ### 3. 解决技术要点说明
 

@@ -192,11 +192,12 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     | While (e, body) ->
         let labbegin = newLabel ()
         let labtest = newLabel ()
-
+        let labend = newLabel ()
+        lablist <- [labend; labtest; labbegin]
         [ GOTO labtest; Label labbegin ]
         @ cStmt body varEnv funEnv
           @ [ Label labtest ]
-            @ cExpr e varEnv funEnv @ [ IFNZRO labbegin ]
+            @ cExpr e varEnv funEnv @ [ IFNZRO labbegin; Label labend ]
     | Expr e -> cExpr e varEnv funEnv @ [ INCSP -1 ]
     | Block stmts ->
 
@@ -309,7 +310,14 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
                 CSTI 1
                 Label labend ]
     | Call (f, es) -> callfun f es varEnv funEnv
-    | _ -> failwith "Not Implemented"
+    | CstC(_) -> failwith "CstC Not Implemented"
+    | CstB(_) -> failwith "CstB Not Implemented"
+    | CstS(_) -> failwith "CstS Not Implemented"
+    | CstF(_) -> failwith "CstF Not Implemented"
+    | Prim3(_, _, _) -> failwith "Prim3 Not Implemented"
+    | Println(_, _) -> failwith "Println Not Implemented"
+    | Sizeof(_) -> failwith "Sizeof Not Implemented"
+    | Typeof(_) -> failwith "Typeof Not Implemented"
 
 (* Generate code to access variable, dereference pointer or index array.
    The effect of the compiled code is to leave an lvalue on the stack.   *)

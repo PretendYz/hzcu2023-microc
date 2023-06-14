@@ -1,9 +1,10 @@
 void main(int n){
-    while(true){
+    while(1){
         printf("%d",n);
         if(n<0){
             break;
         }
-        n--;
+        n=-1;
+        // n=n-1;
     }
 }
