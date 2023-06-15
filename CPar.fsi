@@ -40,6 +40,9 @@ type token =
   | TIMES
   | DIV
   | MOD
+  | TOCHAR
+  | TOINT
+  | TOFLOAT
   | CHAR
   | ELSE
   | IF
@@ -106,6 +109,9 @@ type tokenId =
     | TOKEN_TIMES
     | TOKEN_DIV
     | TOKEN_MOD
+    | TOKEN_TOCHAR
+    | TOKEN_TOINT
+    | TOKEN_TOFLOAT
     | TOKEN_CHAR
     | TOKEN_ELSE
     | TOKEN_IF

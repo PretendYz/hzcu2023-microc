@@ -33,6 +33,9 @@ and expr =                           // 表达式，右值
   | Prim1 of string * expr           (* Unary primitive operator    *)
   | Prim2 of string * expr * expr    (* Binary primitive operator   *)
   | Prim3 of expr * expr * expr      (* Ternary primitive operator  *)
+  | ToInt of expr
+  | ToChar of expr
+  | ToFloat of expr
   | Andalso of expr * expr           (* Sequential and              *)
   | Orelse of expr * expr            (* Sequential or               *)
   | Call of string * expr list       (* Function call f(...)        *)
