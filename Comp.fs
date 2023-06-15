@@ -262,9 +262,9 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         labendlist <- list
         [GOTO labend.Value]
     | Continue -> 
-        let (list, _) = popFirst(labbeginlist)
+        let (list, labbegin) = popFirst(labbeginlist)
         labbeginlist <- list
-        [GOTO labbeginlist.Head]
+        [GOTO labbegin.Value]
 
 and cStmtOrDec stmtOrDec (varEnv: VarEnv) (funEnv: FunEnv) : VarEnv * instr list =
     match stmtOrDec with

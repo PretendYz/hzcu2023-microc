@@ -6,7 +6,6 @@ void main(int n){
             break;
         }
         break;
-        break;
         // if(n<0){
         //     break;
         // }

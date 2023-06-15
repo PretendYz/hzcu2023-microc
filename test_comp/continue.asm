@@ -152,8 +152,8 @@ L2:
 	pop rax
 	cmp rax,0
 	je L5
-	;GOTO L3
-	jmp L3
+	;GOTO L2
+	jmp L2
 	;INCSP 0
 	lea rsp, [rsp-8*(0)]
 	;GOTO L6
