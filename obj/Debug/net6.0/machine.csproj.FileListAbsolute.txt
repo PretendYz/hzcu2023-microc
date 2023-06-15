@@ -1,0 +1,15 @@
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\bin\Debug\net6.0\machine.exe
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\bin\Debug\net6.0\machine.deps.json
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\bin\Debug\net6.0\machine.runtimeconfig.json
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\bin\Debug\net6.0\machine.dll
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\bin\Debug\net6.0\machine.pdb
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\obj\Debug\net6.0\machine.csproj.AssemblyReference.cache
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\obj\Debug\net6.0\machine.GeneratedMSBuildEditorConfig.editorconfig
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\obj\Debug\net6.0\machine.AssemblyInfoInputs.cache
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\obj\Debug\net6.0\machine.AssemblyInfo.cs
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\obj\Debug\net6.0\machine.csproj.CoreCompileInputs.cache
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\obj\Debug\net6.0\machine.dll
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\obj\Debug\net6.0\refint\machine.dll
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\obj\Debug\net6.0\machine.pdb
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\obj\Debug\net6.0\machine.genruntimeconfig.cache
+E:\大三下\编程语言原理与编译\lastwork\hzcu2023-microc\obj\Debug\net6.0\ref\machine.dll

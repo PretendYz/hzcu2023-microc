@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\microcc.fsproj": {}
+    "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\machine.csproj": {}
   },
   "projects": {
-    "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\microcc.fsproj": {
+    "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\machine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\microcc.fsproj",
-        "projectName": "microcc",
-        "projectPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\microcc.fsproj",
+        "projectUniqueName": "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\machine.csproj",
+        "projectName": "machine",
+        "projectPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\machine.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
         "outputPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\obj\\",
         "projectStyle": "PackageReference",
@@ -20,7 +20,6 @@
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files\\dotnet\\sdk\\6.0.406\\FSharp\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://nuget.cdn.azure.cn/v3/index.json": {}
         },
@@ -29,24 +28,16 @@
             "targetAlias": "net6.0",
             "projectReferences": {}
           }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
         }
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "FSharp.Core": {
-              "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
-              "target": "Package",
-              "version": "[6.0.7, )",
-              "generatePathProperty": true
-            },
-            "FsLexYacc": {
-              "target": "Package",
-              "version": "[10.0.0, )",
-              "generatePathProperty": true
-            }
-          },
           "imports": [
             "net461",
             "net462",

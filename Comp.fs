@@ -166,16 +166,13 @@ let x86patch code =
    * varenv  is the local and global variable environment
    * funEnv  is the global function environment
 *)
-let mutable lablist : label list = []
+let mutable labendlist : label list = []
+let mutable labbeginlist : label list = []
+let rec popFirst lst =
+    match lst with
+    | [] -> [], None   // 如果列表为空，返回空列表和 None
+    | x::xs -> xs, Some x  // 如果列表非空，返回除第一个元素外的列表和 Some x，其中 x 是第一个元素
 
-let rec headlab labs = 
-    match labs with
-        | lab :: tr -> lab
-        | []        -> failwith "Error: unknown break"
-let rec dellab labs =
-    match labs with
-        | lab :: tr ->   tr
-        | []        ->   []
 
 let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     match stmt with
@@ -193,7 +190,9 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         let labbegin = newLabel ()
         let labtest = newLabel ()
         let labend = newLabel ()
-        lablist <- [labend; labtest; labbegin]
+        labbeginlist <- [labbegin] @ labbeginlist
+        labendlist <- [labend] @ labendlist
+
         [ GOTO labtest; Label labbegin ]
         @ cStmt body varEnv funEnv
           @ [ Label labtest ]
@@ -219,7 +218,9 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         let labbegin = newLabel ()
         let labtest = newLabel ()
         let labend = newLabel ()
-        lablist <- [labend; labtest; labbegin]
+        labbeginlist <- [labbegin] @ labbeginlist
+        labendlist <- [labend] @ labendlist
+
         cExpr e1 varEnv funEnv
         @ [ GOTO labtest; Label labbegin ]
             @ cStmt body varEnv funEnv @ cExpr e3 varEnv funEnv
@@ -230,7 +231,9 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         let labbegin = newLabel ()
         let labtest = newLabel ()
         let labend = newLabel ()
-        lablist <- [labend; labtest; labbegin]
+        labbeginlist <- [labbegin] @ labbeginlist
+        labendlist <- [labend] @ labendlist
+
         cStmt body varEnv funEnv
         @ [ GOTO labtest; Label labbegin ]
             @ cStmt body varEnv funEnv
@@ -241,7 +244,9 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         let labbegin = newLabel ()
         let labtest = newLabel ()
         let labend = newLabel ()
-        lablist <- [labend; labtest; labbegin]
+        labbeginlist <- [labbegin] @ labbeginlist
+        labendlist <- [labend] @ labendlist
+
         cStmt body varEnv funEnv
         @ [ GOTO labtest; Label labbegin ]
             @ cStmt body varEnv funEnv
@@ -249,16 +254,17 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
                     @ cExpr e varEnv funEnv @ [ IFZERO labbegin; Label labend ]
                     // @ cExpr e varEnv funEnv @ [ IFNZRO labend; Label labend ]
     
-    | Switch(_, _) -> failwith "Not Implemented"
-    | Case(_, _) -> failwith "Not Implemented"
-    | Default(_) -> failwith "Not Implemented"
+    | Switch(_, _) -> failwith "Switch Not Implemented"
+    | Case(_, _) -> failwith "Case Not Implemented"
+    | Default(_) -> failwith "Default Not Implemented"
     | Break -> 
-        let labend = headlab lablist
-        [GOTO labend]
+        let (list, labend) = popFirst(labendlist)
+        labendlist <- list
+        [GOTO labend.Value]
     | Continue -> 
-        let lablist= dellab lablist
-        let labbegin = headlab lablist
-        [GOTO labbegin]
+        let (list, _) = popFirst(labbeginlist)
+        labbeginlist <- list
+        [GOTO labbeginlist.Head]
 
 and cStmtOrDec stmtOrDec (varEnv: VarEnv) (funEnv: FunEnv) : VarEnv * instr list =
     match stmtOrDec with
