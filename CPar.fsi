@@ -45,6 +45,7 @@ type token =
   | IF
   | INT
   | FLOAT
+  | DOUBLE
   | BOOL
   | STRING
   | NULL
@@ -61,6 +62,7 @@ type token =
   | CSTSTRING of (string)
   | NAME of (string)
   | CSTBOOL of (bool)
+  | CSTDOUBLE of (double)
   | CSTFLOAT of (float32)
   | CSTCHAR of (char)
   | CSTINT of (int)
@@ -109,6 +111,7 @@ type tokenId =
     | TOKEN_IF
     | TOKEN_INT
     | TOKEN_FLOAT
+    | TOKEN_DOUBLE
     | TOKEN_BOOL
     | TOKEN_STRING
     | TOKEN_NULL
@@ -125,6 +128,7 @@ type tokenId =
     | TOKEN_CSTSTRING
     | TOKEN_NAME
     | TOKEN_CSTBOOL
+    | TOKEN_CSTDOUBLE
     | TOKEN_CSTFLOAT
     | TOKEN_CSTCHAR
     | TOKEN_CSTINT
@@ -157,6 +161,7 @@ type nonTerminalId =
     | NONTERM_CstI
     | NONTERM_CstS
     | NONTERM_CstF
+    | NONTERM_CstD
     | NONTERM_Type
 /// This function maps tokens to integer indexes
 val tagOfToken: token -> int
