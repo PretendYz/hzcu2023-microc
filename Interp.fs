@@ -457,6 +457,7 @@ and eval e locEnv gloEnv store : enumType * store =
     | CstF f -> (FLOAT (float f), store)
     | CstD d -> (DOUBLE (double d), store)
     | CstC c -> (CHAR c, store)
+    | CstN n -> (INT n ,store)
     | Addr acc -> 
         let (acc1,s) = access acc locEnv gloEnv store
         (POINTER acc1, s)

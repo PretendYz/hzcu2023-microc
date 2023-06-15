@@ -30,6 +30,7 @@ and expr =                           // 表达式，右值
   | CstS of string                   (* Constant string             *)
   | CstF of float32                  (* Constant float              *)
   | CstD of double                   (* Constant double              *)
+  | CstN of int                      (* Constant null              *)
   | Prim1 of string * expr           (* Unary primitive operator    *)
   | Prim2 of string * expr * expr    (* Binary primitive operator   *)
   | Prim3 of expr * expr * expr      (* Ternary primitive operator  *)
