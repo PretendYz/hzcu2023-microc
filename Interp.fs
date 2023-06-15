@@ -107,6 +107,7 @@ type address = int
 type enumType =
   | INT of int                  // 整数
   | FLOAT of float              // 浮点数
+  | DOUBLE of double            // 双精度浮点数
   | CHAR of char                // 字符
   | STRING of string            // 字符串
   | BOOLEAN of bool             // 布尔值
@@ -118,6 +119,7 @@ type enumType =
     | INT i -> i
     | POINTER i -> i
     | FLOAT f -> int f
+    | DOUBLE d -> int d
     | CHAR c -> int c
     | BOOLEAN b -> if b then 1 else 0
     | ARRAY (typ, i, size) -> i    // 不太理解
@@ -138,7 +140,14 @@ type enumType =
     match this with 
     | FLOAT f -> f
     | INT i -> float i
+    | DOUBLE i -> float i
     | _ -> failwith("not float")
+
+  member this.double = 
+    match this with 
+    | DOUBLE d -> d
+    | INT i -> double i
+    | _ -> failwith("not double")
 
   member this.boolean = 
     match this with 
@@ -155,6 +164,7 @@ type enumType =
     match this with 
     | INT i -> TypI
     | FLOAT f -> TypF
+    | DOUBLE d -> TypD
     | CHAR c -> TypC
     | BOOLEAN b -> TypB
     | STRING s -> TypS
@@ -422,6 +432,7 @@ and eval e locEnv gloEnv store : enumType * store =
                   | TypC   -> (STRING "char",s)
                   | TypS   -> (STRING "string",s)
                   | TypF   -> (STRING "float",s)
+                  | TypD   -> (STRING "double",s)
                   | TypA (typ,i) -> (STRING "array",s)
     | Access acc ->
         let (loc, store1) = access acc locEnv gloEnv store
@@ -434,6 +445,7 @@ and eval e locEnv gloEnv store : enumType * store =
     | CstB b -> (BOOLEAN b, store)
     | CstS s -> (STRING s, store)
     | CstF f -> (FLOAT (float f), store)
+    | CstD d -> (DOUBLE (double d), store)
     | CstC c -> (CHAR c, store)
     | Addr acc -> 
         let (acc1,s) = access acc locEnv gloEnv store
@@ -445,6 +457,7 @@ and eval e locEnv gloEnv store : enumType * store =
             | "%c"   -> (printf "%c " i1.char; i1)
             | "%d"   -> (printf "%d " i1.int; i1)  
             | "%f"   -> (printf "%f " i1.float; i1 )
+            | "%F"   -> (printf "%F " i1.double; i1 )
             | "%s"   -> (printf "%s " i1.string; i1 )
             | _      -> failwith ("wrong format")
         (res, store1)
@@ -500,6 +513,7 @@ and eval e locEnv gloEnv store : enumType * store =
             | "%c"   -> (printfn "%c " i1.char; i1)
             | "%d"   -> (printfn "%d " i1.int; i1)  
             | "%f"   -> (printfn "%f " i1.float; i1 )
+            | "%F"   -> (printfn "%F " i1.double; i1 )
             | "%s"   -> (printfn "%s " i1.string; i1 )
             | _      -> failwith ("wrong format")
         (res, store1)
@@ -521,6 +535,7 @@ and access acc locEnv gloEnv store : int * store =
             | ARRAY (name,i,size) -> size
             | INT(_) -> failwith "Not Implemented"
             | FLOAT(_) -> failwith "Not Implemented"
+            | DOUBLE(_) -> failwith "Not Implemented"
             | CHAR(_) -> failwith "Not Implemented"
             | STRING(_) -> failwith "Not Implemented"
             | BOOLEAN(_) -> failwith "Not Implemented"

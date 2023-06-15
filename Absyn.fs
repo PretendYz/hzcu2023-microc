@@ -16,6 +16,7 @@ type typ =
   | TypB                             (* Type bool                   *)
   | TypS                             (* Type string                 *)
   | TypF                             (* Type float                  *)
+  | TypD                             (* Type Double                  *)
   | TypA of typ * int option         (* Array type                  *)
   | TypP of typ                      (* Pointer type                *)
                                                                    
@@ -28,6 +29,7 @@ and expr =                           // 表达式，右值
   | CstB of bool                     (* Constant bool               *)
   | CstS of string                   (* Constant string             *)
   | CstF of float32                  (* Constant float              *)
+  | CstD of double                   (* Constant double              *)
   | Prim1 of string * expr           (* Unary primitive operator    *)
   | Prim2 of string * expr * expr    (* Binary primitive operator   *)
   | Prim3 of expr * expr * expr      (* Ternary primitive operator  *)
