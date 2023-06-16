@@ -451,6 +451,10 @@ and eval e locEnv gloEnv store : enumType * store =
         let (loc, store1) = access acc locEnv gloEnv store
         let (res, store2) = eval e locEnv gloEnv store1
         (res, setSto store2 loc res)
+    | Assign1(acc, e) ->
+        let (loc, store1) = access acc locEnv gloEnv store
+        let (res, store2) = eval e locEnv gloEnv store1
+        (getSto store1 loc, setSto store2 loc res)
     | CstI i -> (INT i, store)
     | CstB b -> (BOOLEAN b, store)
     | CstS s -> (STRING s, store)

@@ -238,9 +238,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\microc.fsproj",
-      "projectName": "microc",
-      "projectPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\microc.fsproj",
+      "projectUniqueName": "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\interpc.fsproj",
+      "projectName": "interpc",
+      "projectPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\interpc.fsproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
       "outputPath": "E:\\大三下\\编程语言原理与编译\\lastwork\\hzcu2023-microc\\obj\\",
       "projectStyle": "PackageReference",
