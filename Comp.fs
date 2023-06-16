@@ -289,6 +289,10 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     | Assign (acc, e) ->
         cAccess acc varEnv funEnv
         @ cExpr e varEnv funEnv @ [ STI ]
+    | Assign1 (acc, e) ->
+        cAccess acc varEnv funEnv @ [ LDI ]
+        @ cAccess acc varEnv funEnv 
+        @ cExpr e varEnv funEnv @ [ STI; SWAP ]
     | CstI i -> [ CSTI i ]
     | Addr acc -> cAccess acc varEnv funEnv
     | Prim1 (ope, e1) ->

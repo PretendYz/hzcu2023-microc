@@ -65,16 +65,18 @@ _L1_main_pro_2:
 	sub rbp, 8 ; rbp pointer to first arg 
 	mov [rbp+16], rax ; set retaddr 
 	mov [rbp+8], r10  ; set oldbp
-	;INCSP 1
-	lea rsp, [rsp-8*(1)]
 	;GETBP
 	push rbp
-	;OFFSET 1
-	push -8
+	;OFFSET 0
+	push -0
 	;ADD
 	pop rax
 	pop r10
 	add rax, r10
+	push rax
+	;LDI
+	pop rax
+	mov rax,[rax]
 	push rax
 	;GETBP
 	push rbp
@@ -110,26 +112,11 @@ _L1_main_pro_2:
 	pop rax
 	mov [rax],r10
 	push r10
-	;STI
-	pop r10
+	;SWAP
 	pop rax
-	mov [rax],r10
+	pop r10
+	push rax
 	push r10
-	;INCSP -1
-	lea rsp, [rsp-8*(-1)]
-	;GETBP
-	push rbp
-	;OFFSET 0
-	push -0
-	;ADD
-	pop rax
-	pop r10
-	add rax, r10
-	push rax
-	;LDI
-	pop rax
-	mov rax,[rax]
-	push rax
 	;PRINTI
 	pop rcx
 	push rcx
@@ -171,6 +158,66 @@ _L1_main_pro_2:
 	pop r10
 	pop rax
 	mov [rax],r10
+	push r10
+	;PRINTI
+	pop rcx
+	push rcx
+	sub rsp, 16
+	call printi
+	add rsp, 16
+	;INCSP -1
+	lea rsp, [rsp-8*(-1)]
+	;GETBP
+	push rbp
+	;OFFSET 0
+	push -0
+	;ADD
+	pop rax
+	pop r10
+	add rax, r10
+	push rax
+	;LDI
+	pop rax
+	mov rax,[rax]
+	push rax
+	;GETBP
+	push rbp
+	;OFFSET 0
+	push -0
+	;ADD
+	pop rax
+	pop r10
+	add rax, r10
+	push rax
+	;GETBP
+	push rbp
+	;OFFSET 0
+	push -0
+	;ADD
+	pop rax
+	pop r10
+	add rax, r10
+	push rax
+	;LDI
+	pop rax
+	mov rax,[rax]
+	push rax
+	;CSTI 1
+	push 1
+	;SUB
+	pop r10
+	pop rax
+	sub rax,r10
+	push rax
+	;STI
+	pop r10
+	pop rax
+	mov [rax],r10
+	push r10
+	;SWAP
+	pop rax
+	pop r10
+	push rax
 	push r10
 	;PRINTI
 	pop rcx
@@ -222,50 +269,8 @@ _L1_main_pro_2:
 	add rsp, 16
 	;INCSP -1
 	lea rsp, [rsp-8*(-1)]
-	;GETBP
-	push rbp
-	;OFFSET 0
-	push -0
-	;ADD
-	pop rax
-	pop r10
-	add rax, r10
-	push rax
-	;GETBP
-	push rbp
-	;OFFSET 0
-	push -0
-	;ADD
-	pop rax
-	pop r10
-	add rax, r10
-	push rax
-	;LDI
-	pop rax
-	mov rax,[rax]
-	push rax
-	;CSTI 1
-	push 1
-	;SUB
-	pop r10
-	pop rax
-	sub rax,r10
-	push rax
-	;STI
-	pop r10
-	pop rax
-	mov [rax],r10
-	push r10
-	;PRINTI
-	pop rcx
-	push rcx
-	sub rsp, 16
-	call printi
-	add rsp, 16
-	;INCSP -1
-	lea rsp, [rsp-8*(-1)]
-	;INCSP -1
-	lea rsp, [rsp-8*(-1)]
+	;INCSP 0
+	lea rsp, [rsp-8*(0)]
 	;RET 0
 	pop rbx
 	add rsp, 8*0

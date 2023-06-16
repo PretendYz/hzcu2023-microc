@@ -18,7 +18,7 @@
 
 成员代码提交日志
 
-![image-20230616090833236](assets/image-20230616090833236.png)
+![image-20230616121420723](assets/image-20230616121420723.png)
 
 ### 1. 项目自评等级:(1-5) 请根据自己项目情况填写下表
 
@@ -40,7 +40,7 @@
 | sizeof        | ⭐⭐⭐      | 2    | test_interp/sizeof.c         |
 | typeof        | ⭐⭐⭐⭐     | 2    | test_interp/typeof.c         |
 | switch        | ⭐⭐⭐⭐     | 3    | test_interp/switch.c         |
-| 自增自减      | ⭐⭐       | 1    | test_interp/selfAddSub.c     |
+| 自增自减      | ⭐⭐⭐⭐     | 1    | test_interp/selfAddSub.c     |
 
 
 
@@ -53,7 +53,7 @@
 | for语句       | ⭐⭐⭐      | 1    | test_comp/for.c            |
 | 三元运算符 ?: | ⭐⭐⭐⭐     | 1    | test_comp/threeOperation.c |
 | +=等语法糖    | ⭐⭐⭐⭐⭐    | 1    | test_comp/self_assign.c    |
-| 自增自减      | ⭐⭐       | 1    | test_comp/selfAddSub.c     |
+| 自增自减      | ⭐⭐⭐⭐     | 1    | test_comp/selfAddSub.c     |
 
 ### 2. 项目说明
 
@@ -197,64 +197,62 @@
   
        ![image-20230614152411124](assets/image-20230614152411124.png)
   
-     - 自增自减(暂未实现左右区别)
+     - 自增自减
   
        ```c
        void main(int n) {
-         int n1;
-         n1 = n++; 
-         printf("%d",n);  // n
+         printf("%d",n++);  // n
          printf("%d",++n);  // n+2
          printf("%d",n--);  // n+2
          printf("%d",--n);  // n
        }
        
        ```
-  
-       ![image-20230614152505622](assets/image-20230614152505622.png)
+       
+       ![image-20230616101401113](assets/image-20230616101401113.png)
   
      - dowhile
   
        ```c
-       void main(int n){
+    void main(int n){
            do{
                printf("%d",n);
                n--;
            }while(n);
        }
        ```
-  
+     
        ![image-20230614152553423](assets/image-20230614152553423.png)
   
      - dountil
   
        ```c
-       void main(int n){
+    void main(int n){
            do{
                printf("%d",n);
                n++;
            }until(n>0);
        }
        ```
-  
+     
        ![image-20230614152614496](assets/image-20230614152614496.png)
   
      - for
   
        ```c
-       void main(int i){
+    void main(int i){
            for(i=1;i<=5;i++){
                printf("%d",i);
            }
        }
        ```
-  
+     
        ![image-20230614152713577](assets/image-20230614152713577.png)
   
      - switch
   
        ```c
-       void main(int n){
+    void main(int n){
            switch(n){
                case 1: printf("%s", "n是1");
                case -1: printf("%s","n是-1");
@@ -262,13 +260,13 @@
            }
        }
        ```
-  
+     
        ![image-20230614152900038](assets/image-20230614152900038.png)
   
      - sizeof
   
        ```c
-       void main(int n){
+    void main(int n){
            char c;
            float f;
            string s;
@@ -281,13 +279,13 @@
            println("%d",sizeof(s));
        }
        ```
-  
+     
        ![image-20230614152935137](assets/image-20230614152935137.png)
   
      - typeof
   
        ```c
-       void main(int n){
+    void main(int n){
            char c;
            float f;
            f = 3.14;
@@ -301,7 +299,7 @@
            println("%s",typeof(s));
        }
        ```
-  
+     
        ![image-20230614152950496](assets/image-20230614152950496.png)
   
   2. 编译器测试
@@ -417,20 +415,18 @@
      
        ```c
        void main(int n) {
-         int n1;
-         n1 = n++; 
-         printf("%d",n);  // n
+         printf("%d",n++);  // n
          printf("%d",++n);  // n+2
          printf("%d",n--);  // n+2
          printf("%d",--n);  // n
        }
        
        ```
+       
+       ![image-20230616121310218](assets/image-20230616121310218.png)
      
-       ![image-20230616084953209](assets/image-20230616084953209.png)
-
      - 语法糖
-     
+  
        ```c
        void main(int n) {
          printf("%d",n);
