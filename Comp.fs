@@ -362,6 +362,10 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     | Sizeof(_) -> failwith "Sizeof Not Implemented"
     | Typeof(_) -> failwith "Typeof Not Implemented"
     | CstD(_) -> failwith "CstD Not Implemented"
+    | CstN(_) -> failwith "CstN Not Implemented"
+    | ToInt(_) -> failwith "ToInt Not Implemented"
+    | ToChar(_) -> failwith "ToChar Not Implemented"
+    | ToFloat(_) -> failwith "ToFloat Not Implemented"
 
 (* Generate code to access variable, dereference pointer or index array.
    The effect of the compiled code is to leave an lvalue on the stack.   *)

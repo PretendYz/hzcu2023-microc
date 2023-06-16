@@ -528,6 +528,7 @@ and eval e locEnv gloEnv store : enumType * store =
             | "%s"   -> (printfn "%s " i1.string; i1 )
             | _      -> failwith ("wrong format")
         (res, store1)
+    | _ -> failwith "Not Implemented"
 
 
 and access acc locEnv gloEnv store : int * store =

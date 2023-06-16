@@ -412,7 +412,43 @@
      
        ![image-20230614164026806](assets/image-20230614164026806.png)
      
+     
+     - 自增
+     
+       ```c
+       void main(int n) {
+         int n1;
+         n1 = n++; 
+         printf("%d",n);  // n
+         printf("%d",++n);  // n+2
+         printf("%d",n--);  // n+2
+         printf("%d",--n);  // n
+       }
        
+       ```
+     
+       ![image-20230616084953209](assets/image-20230616084953209.png)
+
+     - 语法糖
+     
+       ```c
+       void main(int n) {
+         printf("%d",n);
+         n+=3;
+         printf("%d",n);
+         n-=4;
+         printf("%d",n);
+         n*=3;
+         printf("%d",n);
+         n/=2;
+         printf("%d",n);
+         n%=2;
+         printf("%d",n);
+       }
+       
+       ```
+       
+       ![image-20230616085142859](assets/image-20230616085142859.png)
 
 ### 3. 解决技术要点说明
 
