@@ -361,6 +361,7 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
     | Println(_, _) -> failwith "Println Not Implemented"
     | Sizeof(_) -> failwith "Sizeof Not Implemented"
     | Typeof(_) -> failwith "Typeof Not Implemented"
+    | CstD(_) -> failwith "CstD Not Implemented"
 
 (* Generate code to access variable, dereference pointer or index array.
    The effect of the compiled code is to leave an lvalue on the stack.   *)
