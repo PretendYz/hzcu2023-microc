@@ -52,7 +52,8 @@
 | dountil语句   | ⭐⭐⭐      | 1    | test_comp/dountil.c        |
 | for语句       | ⭐⭐⭐      | 1    | test_comp/for.c            |
 | 三元运算符 ?: | ⭐⭐⭐⭐     | 1    | test_comp/threeOperation.c |
-|               |          |      |                            |
+| +=等语法糖    | ⭐⭐⭐⭐⭐    | 1    | test_comp/self_assign.c    |
+| 自增自减      | ⭐⭐       | 1    | test_comp/selfAddSub.c     |
 
 ### 2. 项目说明
 
