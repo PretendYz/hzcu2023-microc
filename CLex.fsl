@@ -18,11 +18,14 @@ let lexemeAsString lexbuf =
 let keyword s =   
     match s with
     | "char"    -> CHAR    // 返回对应的Token ,Token 定义于 CPar.fsl 文件中
+    | "Char"    -> TOCHAR
     | "else"    -> ELSE
     | "false"   -> CSTBOOL false
     | "if"      -> IF
     | "int"     -> INT
+    | "Int"     -> TOINT
     | "float"   -> FLOAT
+    | "Float"   -> TOFLOAT
     | "bool"    -> BOOL
     | "string"  -> STRING
     | "null"    -> NULL

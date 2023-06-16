@@ -419,6 +419,16 @@ and stmtordec stmtordec locEnv gloEnv store =
 
 and eval e locEnv gloEnv store : enumType * store = 
     match e with
+    // | ToInt e -> match e with
+    //              | CstC c -> (INT(int (c - '0')),store)
+    //              | CstF f -> (INT (int f),store)
+    //              | _ -> failwith ("wrong")
+    // | ToChar e -> match e with
+    //              | CstI i -> (i + CHAR(char '0'),store)
+    //              | _ -> failwith ("wrong")
+    // | ToFloat e -> match e with
+    //              | CstI i -> (FLOAT(float i),store)
+    //              | _ -> failwith ("wrong")
     | Sizeof e -> let (res,s1) = eval e locEnv gloEnv store
                   match res with
                 //   | ARRAY (typ, i, size) -> (INT size, s1) // 仅支持存储int
@@ -447,6 +457,7 @@ and eval e locEnv gloEnv store : enumType * store =
     | CstF f -> (FLOAT (float f), store)
     | CstD d -> (DOUBLE (double d), store)
     | CstC c -> (CHAR c, store)
+    | CstN n -> (INT n ,store)
     | Addr acc -> 
         let (acc1,s) = access acc locEnv gloEnv store
         (POINTER acc1, s)
